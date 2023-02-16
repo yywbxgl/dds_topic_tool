@@ -1,7 +1,11 @@
 
-列出当前活跃的dds topic 以及topic_type  
-效果类似ros命令`ros2 topic list -t`
 
+# 简介
+dds topic list 工具  
+列出当前活跃的dds topic 以及topic_type  
+效果类似ros命令  `ros2 topic list -t`
+
+       
 # 依赖环境
 fastdds
 
