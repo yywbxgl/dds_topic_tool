@@ -24,5 +24,7 @@ sudo make install
 dds_topc
 ```
 
+输出格式为 topic_name [topic_data_type]
+![运行](./release/dds_topic.png)
 
 PS . 默认只对Domain 0 进行 discovery
