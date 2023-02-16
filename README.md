@@ -21,7 +21,7 @@ sudo make install
 
 # 使用
 ```bash
-./dds_topc
+dds_topc
 ```
 
 
