@@ -28,28 +28,24 @@ int main(
         char** argv)
 {
     // std::cout << "Starting " << std::endl;
-    // int type = 1;
+    int v_flag = 0;
     // int count = 5;
     // long sleep = 100;
-    // if (argc > 1)
-    // {
-    //     if (strcmp(argv[1], "publisher") == 0)
-    //     {
-    //         type = 1;
-    //         if (argc >= 3)
-    //         {
-    //             count = atoi(argv[2]);
-    //             if (argc == 4)
-    //             {
-    //                 sleep = atoi(argv[3]);
-    //             }
-    //         }
-    //     }
-    //     else if (strcmp(argv[1], "subscriber") == 0)
-    //     {
-    //         type = 2;
-    //     }
-    // }
+    if (argc > 1)
+    {
+        if (strcmp(argv[1], "-v") == 0)
+        {
+            v_flag = 1;
+            // if (argc >= 3)
+            // {
+            //     count = atoi(argv[2]);
+            //     if (argc == 4)
+            //     {
+            //         sleep = atoi(argv[3]);
+            //     }
+            // }
+        }
+    }
     // else
     // {
     //     std::cout << "publisher OR subscriber argument needed" << std::endl;
@@ -60,7 +56,7 @@ int main(
 
     {
         TypeLookupSubscriber mysub;
-        if (mysub.init())
+        if (mysub.init(v_flag))
         {
             mysub.run();
         }

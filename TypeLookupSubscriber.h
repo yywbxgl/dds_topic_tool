@@ -49,7 +49,7 @@ public:
     virtual ~TypeLookupSubscriber();
 
     //!Initialize the subscriber
-    bool init();
+    bool init(int v_flag);
 
     //!RUN the subscriber
     void run();
@@ -129,8 +129,8 @@ public:
             DomainParticipant* participant,
             fastrtps::rtps::ReaderDiscoveryInfo&& info) override
         {
-            //  printf("find subscriber. topic_name:%s  topic_type:%s \n", 
-            //     info.info.topicName().c_str(), info.info.typeName().c_str());
+             printf("subnode:%s   [%s]  [%s] \n", 
+                participant->get_qos().name().c_str(),  info.info.topicName().c_str(), info.info.typeName().c_str());
             std::string topic_name = std::string(info.info.topicName());
             std::string topic_type =  std::string(info.info.topicName());
             if (topic_name.find("ros") ==  std::string::npos)
@@ -142,8 +142,8 @@ public:
             DomainParticipant* participant,
             fastrtps::rtps::WriterDiscoveryInfo&& info) override
         {
-            //  printf("find publisher. topic_name:%s  topic_type:%s \n", 
-            //     info.info.topicName().c_str(), info.info.typeName().c_str());
+             printf("pubnode:%s  [%s]  [%s] \n", 
+                 participant->get_qos().name().c_str(), info.info.topicName().c_str(), info.info.typeName().c_str());
             std::string topic_name =  std::string(info.info.topicName());
             std::string topic_type =  std::string(info.info.topicName());
             if (topic_name.find("ros") ==  std::string::npos)
