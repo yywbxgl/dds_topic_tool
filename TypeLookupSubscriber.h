@@ -122,15 +122,15 @@ public:
             DomainParticipant* participant,
             fastrtps::rtps::ParticipantDiscoveryInfo&& info)
         {
-            // printf("find participant. name:%s \n", info.info.m_participantName.c_str());
+            printf("find participant. name:%s \n", info.info.m_participantName.c_str());
         }
 
         void on_subscriber_discovery(
             DomainParticipant* participant,
             fastrtps::rtps::ReaderDiscoveryInfo&& info) override
         {
-            //  printf("find subscriber. topic_name:%s  topic_type:%s \n", 
-            //     info.info.topicName().c_str(), info.info.typeName().c_str());
+             printf("find subscriber. topic_name:%s  topic_type:%s \n", 
+                info.info.topicName().c_str(), info.info.typeName().c_str());
             std::string topic_name = std::string(info.info.topicName());
             std::string topic_type =  std::string(info.info.topicName());
             if (topic_name.find("ros") ==  std::string::npos)
@@ -142,8 +142,8 @@ public:
             DomainParticipant* participant,
             fastrtps::rtps::WriterDiscoveryInfo&& info) override
         {
-            //  printf("find publisher. topic_name:%s  topic_type:%s \n", 
-            //     info.info.topicName().c_str(), info.info.typeName().c_str());
+             printf("find publisher. topic_name:%s  topic_type:%s \n", 
+                info.info.topicName().c_str(), info.info.typeName().c_str());
             std::string topic_name =  std::string(info.info.topicName());
             std::string topic_type =  std::string(info.info.topicName());
             if (topic_name.find("ros") ==  std::string::npos)

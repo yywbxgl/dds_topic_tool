@@ -255,7 +255,7 @@ void TypeLookupSubscriber::run()
     // std::cout << "Subscriber running. Please press enter to stop the Subscriber" << std::endl;
     // std::cin.ignore();
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     for(auto i: m_listener.topic_type_map_) {
         printf("%s [%s]\n", i.first.c_str(), i.second.c_str());
