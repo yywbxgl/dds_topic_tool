@@ -340,23 +340,22 @@ const TypeObject* GetMinimalHelloWorld_test_2Object()
     }
     type_object->minimal().struct_type().member_seq().emplace_back(mst_message);
 
-    MinimalStructMember mst_index2;
-    mst_index2.common().member_id(memberId++);
-    mst_index2.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_index2.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_index2.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_index2.common().member_flags().IS_OPTIONAL(false);
-    mst_index2.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_index2.common().member_flags().IS_KEY(false);
-    mst_index2.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_index2.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
-
-    MD5 index2_hash("index2");
+    MinimalStructMember mst_aaaa;
+    mst_aaaa.common().member_id(memberId++);
+    mst_aaaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_aaaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_aaaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_aaaa.common().member_flags().IS_OPTIONAL(false);
+    mst_aaaa.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_aaaa.common().member_flags().IS_KEY(false);
+    mst_aaaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_aaaa.common().member_type_id(*GetHelloWorldIdentifier(false));
+    MD5 aaaa_hash("aaaa");
     for(int i = 0; i < 4; ++i)
     {
-        mst_index2.detail().name_hash()[i] = index2_hash.digest[i];
+        mst_aaaa.detail().name_hash()[i] = aaaa_hash.digest[i];
     }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_index2);
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_aaaa);
 
 
     // Header
@@ -441,20 +440,19 @@ const TypeObject* GetCompleteHelloWorld_test_2Object()
 
     type_object->complete().struct_type().member_seq().emplace_back(cst_message);
 
-    CompleteStructMember cst_index2;
-    cst_index2.common().member_id(memberId++);
-    cst_index2.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_index2.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_index2.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_index2.common().member_flags().IS_OPTIONAL(false);
-    cst_index2.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_index2.common().member_flags().IS_KEY(false);
-    cst_index2.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_index2.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
+    CompleteStructMember cst_aaaa;
+    cst_aaaa.common().member_id(memberId++);
+    cst_aaaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_aaaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_aaaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_aaaa.common().member_flags().IS_OPTIONAL(false);
+    cst_aaaa.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_aaaa.common().member_flags().IS_KEY(false);
+    cst_aaaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_aaaa.common().member_type_id(*GetHelloWorldIdentifier(true));
+    cst_aaaa.detail().name("aaaa");
 
-    cst_index2.detail().name("index2");
-
-    type_object->complete().struct_type().member_seq().emplace_back(cst_index2);
+    type_object->complete().struct_type().member_seq().emplace_back(cst_aaaa);
 
 
     // Header
@@ -572,41 +570,39 @@ const TypeObject* GetMinimalHelloWorld_test_3Object()
     }
     type_object->minimal().struct_type().member_seq().emplace_back(mst_message);
 
-    MinimalStructMember mst_index2;
-    mst_index2.common().member_id(memberId++);
-    mst_index2.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_index2.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_index2.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_index2.common().member_flags().IS_OPTIONAL(false);
-    mst_index2.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_index2.common().member_flags().IS_KEY(false);
-    mst_index2.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_index2.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
-
-    MD5 index2_hash("index2");
+    MinimalStructMember mst_aaa;
+    mst_aaa.common().member_id(memberId++);
+    mst_aaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_aaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_aaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_aaa.common().member_flags().IS_OPTIONAL(false);
+    mst_aaa.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_aaa.common().member_flags().IS_KEY(false);
+    mst_aaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_aaa.common().member_type_id(*GetHelloWorldIdentifier(false));
+    MD5 aaa_hash("aaa");
     for(int i = 0; i < 4; ++i)
     {
-        mst_index2.detail().name_hash()[i] = index2_hash.digest[i];
+        mst_aaa.detail().name_hash()[i] = aaa_hash.digest[i];
     }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_index2);
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_aaa);
 
-    MinimalStructMember mst_index3;
-    mst_index3.common().member_id(memberId++);
-    mst_index3.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_index3.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_index3.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_index3.common().member_flags().IS_OPTIONAL(false);
-    mst_index3.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_index3.common().member_flags().IS_KEY(false);
-    mst_index3.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_index3.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
-
-    MD5 index3_hash("index3");
+    MinimalStructMember mst_bbb;
+    mst_bbb.common().member_id(memberId++);
+    mst_bbb.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_bbb.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_bbb.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_bbb.common().member_flags().IS_OPTIONAL(false);
+    mst_bbb.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_bbb.common().member_flags().IS_KEY(false);
+    mst_bbb.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_bbb.common().member_type_id(*GetHelloWorldIdentifier(false));
+    MD5 bbb_hash("bbb");
     for(int i = 0; i < 4; ++i)
     {
-        mst_index3.detail().name_hash()[i] = index3_hash.digest[i];
+        mst_bbb.detail().name_hash()[i] = bbb_hash.digest[i];
     }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_index3);
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_bbb);
 
 
     // Header
@@ -691,35 +687,33 @@ const TypeObject* GetCompleteHelloWorld_test_3Object()
 
     type_object->complete().struct_type().member_seq().emplace_back(cst_message);
 
-    CompleteStructMember cst_index2;
-    cst_index2.common().member_id(memberId++);
-    cst_index2.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_index2.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_index2.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_index2.common().member_flags().IS_OPTIONAL(false);
-    cst_index2.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_index2.common().member_flags().IS_KEY(false);
-    cst_index2.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_index2.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
+    CompleteStructMember cst_aaa;
+    cst_aaa.common().member_id(memberId++);
+    cst_aaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_aaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_aaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_aaa.common().member_flags().IS_OPTIONAL(false);
+    cst_aaa.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_aaa.common().member_flags().IS_KEY(false);
+    cst_aaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_aaa.common().member_type_id(*GetHelloWorldIdentifier(true));
+    cst_aaa.detail().name("aaa");
 
-    cst_index2.detail().name("index2");
+    type_object->complete().struct_type().member_seq().emplace_back(cst_aaa);
 
-    type_object->complete().struct_type().member_seq().emplace_back(cst_index2);
+    CompleteStructMember cst_bbb;
+    cst_bbb.common().member_id(memberId++);
+    cst_bbb.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_bbb.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_bbb.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_bbb.common().member_flags().IS_OPTIONAL(false);
+    cst_bbb.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_bbb.common().member_flags().IS_KEY(false);
+    cst_bbb.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_bbb.common().member_type_id(*GetHelloWorldIdentifier(true));
+    cst_bbb.detail().name("bbb");
 
-    CompleteStructMember cst_index3;
-    cst_index3.common().member_id(memberId++);
-    cst_index3.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_index3.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_index3.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_index3.common().member_flags().IS_OPTIONAL(false);
-    cst_index3.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_index3.common().member_flags().IS_KEY(false);
-    cst_index3.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_index3.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
-
-    cst_index3.detail().name("index3");
-
-    type_object->complete().struct_type().member_seq().emplace_back(cst_index3);
+    type_object->complete().struct_type().member_seq().emplace_back(cst_bbb);
 
 
     // Header

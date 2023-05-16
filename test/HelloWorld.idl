@@ -9,7 +9,7 @@ struct HelloWorld_test_2
 {
 	unsigned long index;
 	string message;
-	unsigned long index2;
+	HelloWorld aaaa;
 };
 
 
@@ -18,6 +18,6 @@ struct HelloWorld_test_3
 {
 	unsigned long index;
 	string message;
-	unsigned long index2;
-	unsigned long index3;
+	HelloWorld aaa;
+	HelloWorld bbb;
 };

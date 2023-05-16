@@ -182,14 +182,18 @@ void HelloWorldPublisher::run()
     int msgsent = 0;
     while(1) {
         st.index(msgsent);
+        st2.message("test1");
         writer_->write(&st);
         std::cout << "Sending sample, count=" << msgsent << std::endl;
 
         st2.index(msgsent);
+        st2.message("test2");
         writer2_->write(&st2);
         std::cout << "Sending sample, count=" << msgsent << std::endl;
 
         st3.index(msgsent);
+        st3.message("test3");
+        st3.aaa().index(msgsent);
         writer3_->write(&st3);
         std::cout << "Sending sample, count=" << msgsent << std::endl;
 

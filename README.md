@@ -26,3 +26,16 @@ dds_topc list  -t
 # echo 具体的topic 效果类似ros命令  `ros2 topic echo`
 dds_topc echo topic_name 
 ```
+
+
+# Demo测试
+```bash
+# 运行test
+cd test
+./mk.sh
+./build/test  publisher
+
+# 运行topic工具
+dds_topc list  -t
+dds_topc echo HelloWorldTopic_33333 
+```

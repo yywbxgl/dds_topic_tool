@@ -336,24 +336,30 @@ public:
      */
     eProsima_user_DllExport std::string& message();
     /*!
-     * @brief This function sets a value in member index2
-     * @param _index2 New value for member index2
+     * @brief This function copies the value in member aaaa
+     * @param _aaaa New value to be copied in member aaaa
      */
-    eProsima_user_DllExport void index2(
-            uint32_t _index2);
+    eProsima_user_DllExport void aaaa(
+            const HelloWorld& _aaaa);
 
     /*!
-     * @brief This function returns the value of member index2
-     * @return Value of member index2
+     * @brief This function moves the value in member aaaa
+     * @param _aaaa New value to be moved in member aaaa
      */
-    eProsima_user_DllExport uint32_t index2() const;
+    eProsima_user_DllExport void aaaa(
+            HelloWorld&& _aaaa);
 
     /*!
-     * @brief This function returns a reference to member index2
-     * @return Reference to member index2
+     * @brief This function returns a constant reference to member aaaa
+     * @return Constant reference to member aaaa
      */
-    eProsima_user_DllExport uint32_t& index2();
+    eProsima_user_DllExport const HelloWorld& aaaa() const;
 
+    /*!
+     * @brief This function returns a reference to member aaaa
+     * @return Reference to member aaaa
+     */
+    eProsima_user_DllExport HelloWorld& aaaa();
 
     /*!
     * @brief This function returns the maximum serialized size of an object
@@ -416,7 +422,7 @@ private:
 
     uint32_t m_index;
     std::string m_message;
-    uint32_t m_index2;
+    HelloWorld m_aaaa;
 
 };
 /*!
@@ -524,43 +530,55 @@ public:
      */
     eProsima_user_DllExport std::string& message();
     /*!
-     * @brief This function sets a value in member index2
-     * @param _index2 New value for member index2
+     * @brief This function copies the value in member aaa
+     * @param _aaa New value to be copied in member aaa
      */
-    eProsima_user_DllExport void index2(
-            uint32_t _index2);
+    eProsima_user_DllExport void aaa(
+            const HelloWorld& _aaa);
 
     /*!
-     * @brief This function returns the value of member index2
-     * @return Value of member index2
+     * @brief This function moves the value in member aaa
+     * @param _aaa New value to be moved in member aaa
      */
-    eProsima_user_DllExport uint32_t index2() const;
+    eProsima_user_DllExport void aaa(
+            HelloWorld&& _aaa);
 
     /*!
-     * @brief This function returns a reference to member index2
-     * @return Reference to member index2
+     * @brief This function returns a constant reference to member aaa
+     * @return Constant reference to member aaa
      */
-    eProsima_user_DllExport uint32_t& index2();
+    eProsima_user_DllExport const HelloWorld& aaa() const;
 
     /*!
-     * @brief This function sets a value in member index3
-     * @param _index3 New value for member index3
+     * @brief This function returns a reference to member aaa
+     * @return Reference to member aaa
      */
-    eProsima_user_DllExport void index3(
-            uint32_t _index3);
+    eProsima_user_DllExport HelloWorld& aaa();
+    /*!
+     * @brief This function copies the value in member bbb
+     * @param _bbb New value to be copied in member bbb
+     */
+    eProsima_user_DllExport void bbb(
+            const HelloWorld& _bbb);
 
     /*!
-     * @brief This function returns the value of member index3
-     * @return Value of member index3
+     * @brief This function moves the value in member bbb
+     * @param _bbb New value to be moved in member bbb
      */
-    eProsima_user_DllExport uint32_t index3() const;
+    eProsima_user_DllExport void bbb(
+            HelloWorld&& _bbb);
 
     /*!
-     * @brief This function returns a reference to member index3
-     * @return Reference to member index3
+     * @brief This function returns a constant reference to member bbb
+     * @return Constant reference to member bbb
      */
-    eProsima_user_DllExport uint32_t& index3();
+    eProsima_user_DllExport const HelloWorld& bbb() const;
 
+    /*!
+     * @brief This function returns a reference to member bbb
+     * @return Reference to member bbb
+     */
+    eProsima_user_DllExport HelloWorld& bbb();
 
     /*!
     * @brief This function returns the maximum serialized size of an object
@@ -623,8 +641,8 @@ private:
 
     uint32_t m_index;
     std::string m_message;
-    uint32_t m_index2;
-    uint32_t m_index3;
+    HelloWorld m_aaa;
+    HelloWorld m_bbb;
 
 };
 
