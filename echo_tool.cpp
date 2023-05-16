@@ -1,58 +1,37 @@
-// Copyright 2016 Proyectos y Sistemas de Mantenimiento SL (eProsima).
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-/**
- * @file TypeLookupSubscriber.cpp
- *
- */
-
-#include "TypeLookupSubscriber.h"
-#include <fastrtps/attributes/ParticipantAttributes.h>
-#include <fastrtps/attributes/SubscriberAttributes.h>
+#include <fastdds/dds/domain/DomainParticipant.hpp>
 #include <fastdds/dds/subscriber/Subscriber.hpp>
 #include <fastdds/dds/subscriber/SampleInfo.hpp>
-#include <fastdds/dds/subscriber/qos/DataReaderQos.hpp>
+#include <fastdds/dds/subscriber/DataReader.hpp>
+#include <fastdds/dds/topic/Topic.hpp>
+#include <fastdds/dds/topic/TypeSupport.hpp>
 #include <fastdds/dds/domain/DomainParticipantFactory.hpp>
+#include <fastdds/rtps/transport/TCPv4TransportDescriptor.h>
+#include <fastrtps/types/DynamicTypePtr.h>
+#include <fastrtps/types/DynamicTypeBuilderFactory.h>
 
-#include <fastrtps/types/DynamicDataHelper.hpp>
-#include <fastrtps/types/DynamicDataFactory.h>
-#include <fastrtps/types/TypeObjectFactory.h>
+#include <iostream>
+#include <map>
+
+#include "echo_tool.h"
 
 using namespace eprosima::fastdds::dds;
+using namespace eprosima::fastdds::rtps;
 using namespace eprosima::fastrtps;
-using namespace eprosima::fastrtps::rtps;
 
-TypeLookupSubscriber::TypeLookupSubscriber()
-    : mp_participant(nullptr)
-    , mp_subscriber(nullptr)
-    , m_listener(this)
-{
-}
 
-bool TypeLookupSubscriber::init(int v_flag)
+void EchoTool::init()
 {
+    // Create the participant and subscriber
     DomainParticipantQos pqos;
-    pqos.wire_protocol().builtin.discovery_config.discoveryProtocol = SIMPLE;
+    pqos.wire_protocol().builtin.discovery_config.discoveryProtocol =  eprosima::fastrtps::rtps::SIMPLE;
     pqos.wire_protocol().builtin.discovery_config.use_SIMPLE_EndpointDiscoveryProtocol = true;
     pqos.wire_protocol().builtin.discovery_config.m_simpleEDP.use_PublicationReaderANDSubscriptionWriter = true;
     pqos.wire_protocol().builtin.discovery_config.m_simpleEDP.use_PublicationWriterANDSubscriptionReader = true;
     pqos.wire_protocol().builtin.typelookup_config.use_client = true;
     pqos.wire_protocol().builtin.use_WriterLivelinessProtocol = false;
     pqos.wire_protocol().builtin.discovery_config.leaseDuration = c_TimeInfinite;
-    pqos.name("Participant_sub");
+    pqos.name("DDS Echo Tool");
 
-    //Do not enable entities on creation
     DomainParticipantFactoryQos factory_qos;
     factory_qos.entity_factory().autoenable_created_entities = false;
     DomainParticipantFactory::get_instance()->set_qos(factory_qos);
@@ -61,27 +40,25 @@ bool TypeLookupSubscriber::init(int v_flag)
     mp_participant = DomainParticipantFactory::get_instance()->create_participant(0, pqos, &m_listener, par_mask);
     if (mp_participant == nullptr)
     {
-        return false;
+        return ;
     }
     if (mp_participant->enable() != ReturnCode_t::RETCODE_OK)
     {
         DomainParticipantFactory::get_instance()->delete_participant(mp_participant);
-        return false;
+        return ;
     }
 
     // CREATE THE COMMON READER ATTRIBUTES
     qos_ = DATAREADER_QOS_DEFAULT;
-    qos_.durability().kind = eprosima::fastdds::dds::TRANSIENT_LOCAL_DURABILITY_QOS;
-    qos_.reliability().kind = eprosima::fastdds::dds::RELIABLE_RELIABILITY_QOS;
-    qos_.history().kind = eprosima::fastdds::dds::KEEP_LAST_HISTORY_QOS;
-    qos_.history().depth = 30;
-    qos_.resource_limits().max_samples = 50;
-    qos_.resource_limits().allocated_samples = 20;
-
-    return true;
+//     qos_.durability().kind = eprosima::fastdds::dds::TRANSIENT_LOCAL_DURABILITY_QOS;
+//     qos_.reliability().kind = eprosima::fastdds::dds::RELIABLE_RELIABILITY_QOS;
+//     qos_.history().kind = eprosima::fastdds::dds::KEEP_LAST_HISTORY_QOS;
+//     qos_.history().depth = 30;
+//     qos_.resource_limits().max_samples = 50;
+//     qos_.resource_limits().allocated_samples = 20;
 }
 
-TypeLookupSubscriber::~TypeLookupSubscriber()
+EchoTool::~EchoTool()
 {
     for (const auto& it : topics_)
     {
@@ -99,7 +76,24 @@ TypeLookupSubscriber::~TypeLookupSubscriber()
     datas_.clear();
 }
 
-void TypeLookupSubscriber::SubListener::on_subscription_matched(
+void EchoTool::run()
+{
+    while(1) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+}
+
+
+void EchoTool::subscribe_to_topic(const std::string& topic_name)
+{
+    sub_topic_ = topic_name;
+    sub_topic_list_.push_back(topic_name);
+    std::cout << "Subscribed to topic " << topic_name << std::endl;
+}
+
+
+
+void EchoTool::SubListener::on_subscription_matched(
         eprosima::fastdds::dds::DataReader* reader,
         const eprosima::fastdds::dds::SubscriptionMatchedStatus& info)
 {
@@ -135,7 +129,9 @@ void TypeLookupSubscriber::SubListener::on_subscription_matched(
     }
 }
 
-void TypeLookupSubscriber::SubListener::on_data_available(
+
+
+void EchoTool::SubListener::on_data_available(
         eprosima::fastdds::dds::DataReader* reader)
 {
     auto dit = subscriber_->datas_.find(reader);
@@ -150,26 +146,29 @@ void TypeLookupSubscriber::SubListener::on_data_available(
             {
                 types::DynamicType_ptr type = subscriber_->readers_[reader];
                 this->n_samples++;
-                std::cout << "Received data of type " << type->get_name() << std::endl;
+                // std::cout << "Received data of type " << type->get_name() << std::endl;
                 types::DynamicDataHelper::print(data);
+                std::cout << "-------------------------------\n"  << std::endl;
             }
         }
     }
 }
 
-void TypeLookupSubscriber::SubListener::on_type_information_received(
+
+
+void EchoTool::SubListener::on_type_information_received(
         eprosima::fastdds::dds::DomainParticipant*,
         const eprosima::fastrtps::string_255 topic_name,
         const eprosima::fastrtps::string_255 type_name,
         const eprosima::fastrtps::types::TypeInformation& type_information)
 {
-
-    // printf("---- on_type_information_received. \n");
-
     std::function<void(const std::string&, const types::DynamicType_ptr)> callback =
             [this, topic_name](const std::string& name, const types::DynamicType_ptr type)
             {
                 std::cout << "Discovered type: " << name << " from topic " << topic_name << std::endl;
+
+                if (topic_name != subscriber_->sub_topic_  )
+                    return;
 
                 if (subscriber_->mp_subscriber == nullptr)
                 {
@@ -189,9 +188,7 @@ void TypeLookupSubscriber::SubListener::on_type_information_received(
 
                 //CREATE THE TOPIC
                 eprosima::fastdds::dds::Topic* topic = subscriber_->mp_participant->create_topic(
-                    "TypeLookupTopic",
-                    name,
-                    TOPIC_QOS_DEFAULT);
+                    std::string(topic_name), name, TOPIC_QOS_DEFAULT);
 
                 if (topic == nullptr)
                 {
@@ -250,25 +247,5 @@ void TypeLookupSubscriber::SubListener::on_type_information_received(
         callback);
 }
 
-void TypeLookupSubscriber::run()
-{
-    // std::cout << "Subscriber running. Please press enter to stop the Subscriber" << std::endl;
-    // std::cin.ignore();
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    for(auto i: m_listener.topic_type_map_) {
-        printf("%s [%s]\n", i.first.c_str(), i.second.c_str());
-    }
-
-}
-
-void TypeLookupSubscriber::run(
-        uint32_t number)
-{
-    std::cout << "Subscriber running until " << number << " samples have been received" << std::endl;
-    while (number > this->m_listener.n_samples)
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    }
-}

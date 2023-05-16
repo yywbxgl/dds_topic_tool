@@ -3,3 +3,21 @@ struct HelloWorld
 	unsigned long index;
 	string message;
 };
+
+
+struct HelloWorld_test_2
+{
+	unsigned long index;
+	string message;
+	unsigned long index2;
+};
+
+
+
+struct HelloWorld_test_3
+{
+	unsigned long index;
+	string message;
+	unsigned long index2;
+	unsigned long index3;
+};

@@ -22,6 +22,7 @@
 
 #include "HelloWorldPublisher.h"
 #include "HelloWorldPubSubTypes.h"
+#include "HelloWorldTypeObject.h"
 
 #include <fastdds/dds/domain/DomainParticipantFactory.hpp>
 #include <fastdds/dds/publisher/Publisher.hpp>
@@ -38,8 +39,14 @@ HelloWorldPublisher::HelloWorldPublisher()
     : participant_(nullptr)
     , publisher_(nullptr)
     , topic_(nullptr)
+    , topic2_(nullptr)
+    , topic3_(nullptr)
     , writer_(nullptr)
+    , writer2_(nullptr)
+    , writer3_(nullptr)
     , type_(new HelloWorldPubSubType())
+    , type2_(new HelloWorld_test_2PubSubType())
+    , type3_(new HelloWorld_test_3PubSubType())
 {
 }
 
@@ -66,15 +73,26 @@ bool HelloWorldPublisher::init()
 
     //CREATE THE PARTICIPANT
     DomainParticipantQos pqos;
-    pqos.name("Participant_pub");
+    pqos.wire_protocol().builtin.discovery_config.discoveryProtocol =  eprosima::fastrtps::rtps::SIMPLE;
+    pqos.wire_protocol().builtin.discovery_config.use_SIMPLE_EndpointDiscoveryProtocol = true;
+    pqos.wire_protocol().builtin.discovery_config.m_simpleEDP.use_PublicationReaderANDSubscriptionWriter = true;
+    pqos.wire_protocol().builtin.discovery_config.m_simpleEDP.use_PublicationWriterANDSubscriptionReader = true;
+    pqos.wire_protocol().builtin.typelookup_config.use_server = true;
+    pqos.wire_protocol().builtin.use_WriterLivelinessProtocol = false;
+    pqos.wire_protocol().builtin.discovery_config.leaseDuration = eprosima::fastrtps::c_TimeInfinite;
+    pqos.name("dds topic tool test");
     participant_ = DomainParticipantFactory::get_instance()->create_participant(0, pqos);
+
     if (participant_ == nullptr)
     {
         return false;
     }
 
     //REGISTER THE TYPE
+    registerHelloWorldTypes();
     type_.register_type(participant_);
+    type2_.register_type(participant_);
+    type3_.register_type(participant_);
 
     //CREATE THE PUBLISHER
     publisher_ = participant_->create_publisher(PUBLISHER_QOS_DEFAULT, nullptr);
@@ -84,9 +102,26 @@ bool HelloWorldPublisher::init()
     }
 
     //CREATE THE TOPIC
-    topic_ = participant_->create_topic(
-        "HelloWorldTopic",
-        type_.get_type_name(),
+    topic_ = participant_->create_topic("HelloWorldTopic", type_.get_type_name(), TOPIC_QOS_DEFAULT);
+    if (topic_ == nullptr)
+    {
+        return false;
+    }
+
+     //CREATE THE TOPIC
+    topic2_ = participant_->create_topic(
+        "HelloWorldTopic_22222",
+        type2_.get_type_name(),
+        TOPIC_QOS_DEFAULT);
+    if (topic_ == nullptr)
+    {
+        return false;
+    }
+
+     //CREATE THE TOPIC
+    topic3_ = participant_->create_topic(
+        "HelloWorldTopic_33333",
+        type3_.get_type_name(),
         TOPIC_QOS_DEFAULT);
     if (topic_ == nullptr)
     {
@@ -94,7 +129,20 @@ bool HelloWorldPublisher::init()
     }
 
     // CREATE THE WRITER
-    writer_ = publisher_->create_datawriter(topic_, DATAWRITER_QOS_DEFAULT, &listener_);
+    DataWriterQos wqos;
+    writer_ = publisher_->create_datawriter(topic_, wqos, &listener_);
+    if (writer_ == nullptr)
+    {
+        return false;
+    }
+
+    writer2_ = publisher_->create_datawriter(topic2_, DATAWRITER_QOS_DEFAULT, &listener_);
+    if (writer_ == nullptr)
+    {
+        return false;
+    }
+
+    writer3_ = publisher_->create_datawriter(topic3_, DATAWRITER_QOS_DEFAULT, &listener_);
     if (writer_ == nullptr)
     {
         return false;
@@ -127,43 +175,28 @@ void HelloWorldPublisher::PubListener::on_publication_matched(
 
 void HelloWorldPublisher::run()
 {
-    // std::cout << "HelloWorld DataWriter waiting for DataReaders." << std::endl;
-    // while (listener_.matched == 0)
-    // {
-    //     std::this_thread::sleep_for(std::chrono::milliseconds(250)); // Sleep 250 ms
-    // }
-
-    // Publication code
-
     HelloWorld st;
-
+    HelloWorld_test_2 st2;
+    HelloWorld_test_3 st3;
     /* Initialize your structure here */
     int msgsent = 0;
     while(1) {
+        st.index(msgsent);
         writer_->write(&st);
-        ++msgsent;
         std::cout << "Sending sample, count=" << msgsent << std::endl;
+
+        st2.index(msgsent);
+        writer2_->write(&st2);
+        std::cout << "Sending sample, count=" << msgsent << std::endl;
+
+        st3.index(msgsent);
+        writer3_->write(&st3);
+        std::cout << "Sending sample, count=" << msgsent << std::endl;
+
+        ++msgsent;
         std::this_thread::sleep_for(std::chrono::milliseconds(250)); // Sleep 250 ms
     }
 
    
-    // char ch = 'y';
-    // do
-    // {
-    //     if (ch == 'y')
-    //     {
-    //         writer_->write(&st);
-    //         ++msgsent;
-    //         std::cout << "Sending sample, count=" << msgsent << ", send another sample?(y-yes,n-stop): ";
-    //     }
-    //     else if (ch == 'n')
-    //     {
-    //         std::cout << "Stopping execution " << std::endl;
-    //         break;
-    //     }
-    //     else
-    //     {
-    //         std::cout << "Command " << ch << " not recognized, please enter \"y/n\":";
-    //     }
-    // } while (std::cin >> ch);
+
 }

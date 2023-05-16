@@ -34,6 +34,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     endif()
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
 message(STATUS "Configuring TypeLookup example...")
 file(GLOB DDS_TYPELOOKUP_EXAMPLE_SOURCES_CPP "*.cpp")
 

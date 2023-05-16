@@ -29,6 +29,8 @@
 #include <fastdds/dds/publisher/Publisher.hpp>
 #include <fastdds/dds/topic/TypeSupport.hpp>
 
+#include "HelloWorldPubSubTypes.h"
+
 class HelloWorldPublisher
 {
 public:
@@ -46,8 +48,14 @@ private:
     eprosima::fastdds::dds::DomainParticipant* participant_;
     eprosima::fastdds::dds::Publisher* publisher_;
     eprosima::fastdds::dds::Topic* topic_;
+    eprosima::fastdds::dds::Topic* topic2_;
+    eprosima::fastdds::dds::Topic* topic3_;
     eprosima::fastdds::dds::DataWriter* writer_;
+    eprosima::fastdds::dds::DataWriter* writer2_;
+    eprosima::fastdds::dds::DataWriter* writer3_;
     eprosima::fastdds::dds::TypeSupport type_;
+    eprosima::fastdds::dds::TypeSupport type2_;
+    eprosima::fastdds::dds::TypeSupport type3_;
 
     class PubListener : public eprosima::fastdds::dds::DataWriterListener
     {

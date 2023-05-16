@@ -12,12 +12,12 @@ find_package(fastrtps REQUIRED)
 
 
 message(STATUS "Configuring HelloWorld...")
-add_library(HelloWorld_lib HelloWorld.cxx)
-target_link_libraries(HelloWorld_lib fastcdr fastrtps)
+file(GLOB SRC_FILE "*.cxx")
 
-add_executable(HelloWorld HelloWorldPubSubTypes.cxx HelloWorldPublisher.cxx HelloWorldSubscriber.cxx HelloWorldPubSubMain.cxx)
-target_link_libraries(HelloWorld fastcdr fastrtps
-        HelloWorld_lib )
+add_executable(test  ${SRC_FILE})
+
+target_link_libraries(test 
+        fastcdr fastrtps)
 
 
 
