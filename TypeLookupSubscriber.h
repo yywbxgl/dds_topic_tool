@@ -49,7 +49,7 @@ public:
     virtual ~TypeLookupSubscriber();
 
     //!Initialize the subscriber
-    bool init();
+    bool init(int v_flag);
 
     //!RUN the subscriber
     void run();

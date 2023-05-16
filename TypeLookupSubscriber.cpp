@@ -40,7 +40,7 @@ TypeLookupSubscriber::TypeLookupSubscriber()
 {
 }
 
-bool TypeLookupSubscriber::init()
+bool TypeLookupSubscriber::init(int v_flag)
 {
     DomainParticipantQos pqos;
     pqos.wire_protocol().builtin.discovery_config.discoveryProtocol = SIMPLE;
@@ -164,7 +164,7 @@ void TypeLookupSubscriber::SubListener::on_type_information_received(
         const eprosima::fastrtps::types::TypeInformation& type_information)
 {
 
-    printf("---- on_type_information_received. \n");
+    // printf("---- on_type_information_received. \n");
 
     std::function<void(const std::string&, const types::DynamicType_ptr)> callback =
             [this, topic_name](const std::string& name, const types::DynamicType_ptr type)
