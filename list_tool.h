@@ -77,9 +77,9 @@ public:
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         for(auto i: m_listener.topic_type_map_) {
             if (t_flag)
-                printf("\e[32m%s \t[%s]\e[0m\n", i.first.c_str(), i.second.c_str());
+                printf("\e[35m%s \t[%s]\e[0m\n", i.first.c_str(), i.second.c_str());
             else
-                printf("\e[32m%s \e[0m\n", i.first.c_str());
+                printf("\e[35m%s \e[0m\n", i.first.c_str());
         }
     }
 

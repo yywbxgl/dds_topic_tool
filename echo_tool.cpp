@@ -50,12 +50,12 @@ void EchoTool::init()
 
     // CREATE THE COMMON READER ATTRIBUTES
     qos_ = DATAREADER_QOS_DEFAULT;
-//     qos_.durability().kind = eprosima::fastdds::dds::TRANSIENT_LOCAL_DURABILITY_QOS;
-//     qos_.reliability().kind = eprosima::fastdds::dds::RELIABLE_RELIABILITY_QOS;
-//     qos_.history().kind = eprosima::fastdds::dds::KEEP_LAST_HISTORY_QOS;
-//     qos_.history().depth = 30;
-//     qos_.resource_limits().max_samples = 50;
-//     qos_.resource_limits().allocated_samples = 20;
+    // qos_.durability().kind = eprosima::fastdds::dds::TRANSIENT_LOCAL_DURABILITY_QOS;
+    // qos_.reliability().kind = eprosima::fastdds::dds::RELIABLE_RELIABILITY_QOS;
+    // qos_.history().kind = eprosima::fastdds::dds::KEEP_LAST_HISTORY_QOS;
+    // qos_.history().depth = 30;
+    // qos_.resource_limits().max_samples = 50;
+    // qos_.resource_limits().allocated_samples = 20;
 }
 
 EchoTool::~EchoTool()

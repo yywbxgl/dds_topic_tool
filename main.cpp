@@ -35,24 +35,16 @@ int main(int argc, char** argv)
         }
     
     } 
-    else if (command == "echo") 
+    else if (command == "echo" && argc>2 ) 
     {
-        try
+        EchoTool tool;
+        tool.init();
+        for(int i = 2; i < argc; i++)
         {
-            EchoTool tool;
-            tool.init();
-            for(int i = 2; i < argc; i++)
-            {
-                std::string topic_name = argv[i];
-                tool.subscribe_to_topic(topic_name);
-            }
-            tool.run();
+            std::string topic_name = argv[i];
+            tool.subscribe_to_topic(topic_name);
         }
-        catch(const std::exception& e)
-        {
-            std::cerr << "Error: " << e.what() << std::endl;
-            return 1;
-        }
+        tool.run();
     }
     else
     {
