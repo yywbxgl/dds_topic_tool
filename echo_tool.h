@@ -22,11 +22,19 @@
 #include <fastrtps/types/DynamicDataHelper.hpp>
 #include <fastrtps/types/DynamicDataFactory.h>
 #include <fastrtps/types/TypeObjectFactory.h>
+#include <fastrtps/subscriber/SampleInfo.h>
+
+#include <fastrtps/types/DynamicDataFactory.h>
+#include <fastdds/dds/topic/TopicDataType.hpp>
+#include <fastrtps/types/DynamicTypePtr.h>
+#include <fastrtps/types/DynamicDataPtr.h>
+#include <fastrtps/types/TypesBase.h>
 
 #include <iostream>
 #include <map>
 #include <vector>
 
+using namespace eprosima;
 using namespace eprosima::fastdds::dds;
 using namespace eprosima::fastdds::rtps;
 using namespace eprosima::fastrtps::types;
@@ -78,18 +86,52 @@ public:
 
         ~SubListener() override {}
 
-        void on_data_available(
-                eprosima::fastdds::dds::DataReader* reader) override;
+        void on_type_discovery(
+            DomainParticipant* participant,
+            const fastrtps::rtps::SampleIdentity& request_sample_id,
+            const fastrtps::string_255& topic_name,
+            const fastrtps::types::TypeIdentifier* identifier,
+            const fastrtps::types::TypeObject* object,
+            fastrtps::types::DynamicType_ptr dyn_type)  {
+            // std::cout << "---- on_type_discovery topic:" << topic_name << std::endl;
+        }
 
-        void on_subscription_matched(
-                eprosima::fastdds::dds::DataReader* reader,
-                const eprosima::fastdds::dds::SubscriptionMatchedStatus& info) override;
+
+        void on_type_dependencies_reply(
+            DomainParticipant* participant,
+            const fastrtps::rtps::SampleIdentity& request_sample_id,
+            const fastrtps::types::TypeIdentifierWithSizeSeq& dependencies) {
+            //printf("---- on_type_dependencies_reply. \n");
+        }
 
         void on_type_information_received(
                 eprosima::fastdds::dds::DomainParticipant* participant,
                 const eprosima::fastrtps::string_255 topic_name,
                 const eprosima::fastrtps::string_255 type_name,
                 const eprosima::fastrtps::types::TypeInformation& type_information) override;
+
+
+        void on_participant_discovery(
+            DomainParticipant* participant,
+            fastrtps::rtps::ParticipantDiscoveryInfo&& info) {
+            // printf("---- find participant. name:%s \n", info.info.m_participantName.c_str());
+        }
+
+
+        void on_publisher_discovery(
+            DomainParticipant* participant,
+            fastrtps::rtps::WriterDiscoveryInfo&& info) override {
+            //  printf("---- find publisher. topic_name:%s  topic_type:%s \n", 
+            //     info.info.topicName().c_str(), info.info.typeName().c_str());
+
+        }
+
+        void on_data_available(
+                eprosima::fastdds::dds::DataReader* reader) override;
+
+        void on_subscription_matched(
+                eprosima::fastdds::dds::DataReader* reader,
+                const eprosima::fastdds::dds::SubscriptionMatchedStatus& info) override;
 
         int n_matched;
         uint32_t n_samples;
