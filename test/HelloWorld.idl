@@ -16,8 +16,8 @@ struct HelloWorld_test_2
 
 struct HelloWorld_test_3
 {
-	unsigned long index;
+    long index;
 	string message;
-	HelloWorld aaa;
+	HelloWorld_test_2 aaa;
 	HelloWorld bbb;
 };

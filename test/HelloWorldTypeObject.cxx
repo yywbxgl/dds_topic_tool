@@ -542,7 +542,7 @@ const TypeObject* GetMinimalHelloWorld_test_3Object()
     mst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
     mst_index.common().member_flags().IS_KEY(false);
     mst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
+    mst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("int32_t", false));
 
     MD5 index_hash("index");
     for(int i = 0; i < 4; ++i)
@@ -579,7 +579,7 @@ const TypeObject* GetMinimalHelloWorld_test_3Object()
     mst_aaa.common().member_flags().IS_MUST_UNDERSTAND(false);
     mst_aaa.common().member_flags().IS_KEY(false);
     mst_aaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_aaa.common().member_type_id(*GetHelloWorldIdentifier(false));
+    mst_aaa.common().member_type_id(*GetHelloWorld_test_2Identifier(false));
     MD5 aaa_hash("aaa");
     for(int i = 0; i < 4; ++i)
     {
@@ -665,7 +665,7 @@ const TypeObject* GetCompleteHelloWorld_test_3Object()
     cst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
     cst_index.common().member_flags().IS_KEY(false);
     cst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
+    cst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("int32_t", false));
 
     cst_index.detail().name("index");
 
@@ -696,7 +696,7 @@ const TypeObject* GetCompleteHelloWorld_test_3Object()
     cst_aaa.common().member_flags().IS_MUST_UNDERSTAND(false);
     cst_aaa.common().member_flags().IS_KEY(false);
     cst_aaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_aaa.common().member_type_id(*GetHelloWorldIdentifier(true));
+    cst_aaa.common().member_type_id(*GetHelloWorld_test_2Identifier(true));
     cst_aaa.detail().name("aaa");
 
     type_object->complete().struct_type().member_seq().emplace_back(cst_aaa);

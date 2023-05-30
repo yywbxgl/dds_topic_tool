@@ -56,6 +56,10 @@ public:
 
     void subscribe_to_topic(const std::string& topic_name);
 
+private:
+    void internal_notify_type_object_( DynamicType_ptr dynamic_type);
+  
+
 public:
     std::string sub_topic_;
     std::vector<std::string> sub_topic_list_;
@@ -93,7 +97,32 @@ public:
             const fastrtps::types::TypeIdentifier* identifier,
             const fastrtps::types::TypeObject* object,
             fastrtps::types::DynamicType_ptr dyn_type)  {
-            // std::cout << "---- on_type_discovery topic:" << topic_name << std::endl;
+
+            if (nullptr != dyn_type)
+            {
+                // Register type obj in singleton factory
+                TypeObjectFactory::get_instance()->add_type_object(
+                    dyn_type->get_name(), identifier, object);
+                std::cout << "---- on_type_discovery dyn type: " << dyn_type->get_name() << std::endl;
+                // internal_notify_type_object_(dyn_type);
+
+                // //CREATE THE TOPIC
+                // eprosima::fastdds::dds::Topic* topic = subscriber_->mp_participant->create_topic(
+                //     std::string(topic_name), dyn_type->get_name(), TOPIC_QOS_DEFAULT);
+
+                // StatusMask sub_mask = StatusMask::subscription_matched() << StatusMask::data_available();
+                // DataReader* reader = subscriber_->mp_subscriber->create_datareader(
+                //     topic,
+                //     subscriber_->qos_,
+                //     &subscriber_->m_listener,
+                //     sub_mask);
+
+                // subscriber_->topics_[reader] = topic;
+                // subscriber_->readers_[reader] = dyn_type;
+                // fastrtps::types::DynamicData_ptr data(fastrtps::types::DynamicDataFactory::get_instance()->create_data(dyn_type));
+                // subscriber_->datas_[reader] = data;
+            }
+        
         }
 
 

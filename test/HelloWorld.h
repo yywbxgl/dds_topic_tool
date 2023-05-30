@@ -490,19 +490,19 @@ public:
      * @param _index New value for member index
      */
     eProsima_user_DllExport void index(
-            uint32_t _index);
+            int32_t _index);
 
     /*!
      * @brief This function returns the value of member index
      * @return Value of member index
      */
-    eProsima_user_DllExport uint32_t index() const;
+    eProsima_user_DllExport int32_t index() const;
 
     /*!
      * @brief This function returns a reference to member index
      * @return Reference to member index
      */
-    eProsima_user_DllExport uint32_t& index();
+    eProsima_user_DllExport int32_t& index();
 
     /*!
      * @brief This function copies the value in member message
@@ -534,26 +534,26 @@ public:
      * @param _aaa New value to be copied in member aaa
      */
     eProsima_user_DllExport void aaa(
-            const HelloWorld& _aaa);
+            const HelloWorld_test_2& _aaa);
 
     /*!
      * @brief This function moves the value in member aaa
      * @param _aaa New value to be moved in member aaa
      */
     eProsima_user_DllExport void aaa(
-            HelloWorld&& _aaa);
+            HelloWorld_test_2&& _aaa);
 
     /*!
      * @brief This function returns a constant reference to member aaa
      * @return Constant reference to member aaa
      */
-    eProsima_user_DllExport const HelloWorld& aaa() const;
+    eProsima_user_DllExport const HelloWorld_test_2& aaa() const;
 
     /*!
      * @brief This function returns a reference to member aaa
      * @return Reference to member aaa
      */
-    eProsima_user_DllExport HelloWorld& aaa();
+    eProsima_user_DllExport HelloWorld_test_2& aaa();
     /*!
      * @brief This function copies the value in member bbb
      * @param _bbb New value to be copied in member bbb
@@ -639,9 +639,9 @@ public:
 
 private:
 
-    uint32_t m_index;
+    int32_t m_index;
     std::string m_message;
-    HelloWorld m_aaa;
+    HelloWorld_test_2 m_aaa;
     HelloWorld m_bbb;
 
 };

@@ -48,6 +48,10 @@ void EchoTool::init()
         return ;
     }
 
+    factory_qos.entity_factory().autoenable_created_entities = true;
+    DomainParticipantFactory::get_instance()->set_qos(factory_qos);
+
+
     // CREATE THE COMMON READER ATTRIBUTES
     qos_ = DATAREADER_QOS_DEFAULT;
     // qos_.durability().kind = eprosima::fastdds::dds::TRANSIENT_LOCAL_DURABILITY_QOS;
@@ -56,6 +60,13 @@ void EchoTool::init()
     // qos_.history().depth = 30;
     // qos_.resource_limits().max_samples = 50;
     // qos_.resource_limits().allocated_samples = 20;
+    mp_subscriber = mp_participant->create_subscriber(SUBSCRIBER_QOS_DEFAULT, nullptr);
+    if (mp_subscriber == nullptr)
+    {
+        return;
+    }
+    mp_subscriber->enable();
+
 }
 
 EchoTool::~EchoTool()
@@ -154,7 +165,13 @@ void EchoTool::SubListener::on_data_available(
     }
 }
 
+void EchoTool::internal_notify_type_object_(types::DynamicType_ptr dynamic_type)
+{
 
+    // // Create data containing Dynamic Type
+    // auto data = std::make_unique<types::DynamicTypeData>();
+    // data->dynamic_type = dynamic_type; // TODO: add constructor with param
+}
 
 void EchoTool::SubListener::on_type_information_received(
         eprosima::fastdds::dds::DomainParticipant*,
@@ -162,29 +179,77 @@ void EchoTool::SubListener::on_type_information_received(
         const eprosima::fastrtps::string_255 type_name,
         const eprosima::fastrtps::types::TypeInformation& type_information)
 {
+    // std::cout << "Discovered type: " << type_name.to_string() << 
+    //     " from topic " << topic_name.to_string() << std::endl;
+
+    std::string type_name_ = type_name.to_string();
+    const TypeIdentifier* type_identifier = nullptr;
+    const TypeObject* type_object = nullptr;
+    DynamicType_ptr dynamic_type(nullptr);
+
+     // Check if complete identifier already present in factory
+    type_identifier = TypeObjectFactory::get_instance()->get_type_identifier(type_name_, true);
+    if (type_identifier)
+    {
+        type_object = TypeObjectFactory::get_instance()->get_type_object(type_name_, true);
+    }
+
+    // If complete not found, try with minimal
+    if (!type_object)
+    {
+        type_identifier = TypeObjectFactory::get_instance()->get_type_identifier(type_name_, false);
+        if (type_identifier)
+        {
+            type_object = TypeObjectFactory::get_instance()->get_type_object(type_name_, false);
+        }
+    }
+
+    // Build dynamic type if type identifier and object found in factory
+    if (type_identifier && type_object)
+    {
+        dynamic_type = TypeObjectFactory::get_instance()->build_dynamic_type(type_name_, type_identifier, type_object);
+    }
+
+    // // Request type object through TypeLookup if not present in factory, or if type building failed
+    // if (!dynamic_type)
+    // {
+    //     std::function<void(const std::string& type_name, const DynamicType_ptr)> callback(
+    //         [this]
+    //             (const std::string&  type_name , const DynamicType_ptr type)
+    //         {
+    //             printf("---- type_name %s\n", type_name.c_str());
+    //             this->internal_notify_type_object_(type);
+
+    //             // if (topic_name != subscriber_->sub_topic_  )
+    //             //     return;
+
+    //             //CREATE THE TOPIC
+    //             eprosima::fastdds::dds::Topic* topic = subscriber_->mp_participant->create_topic(
+    //                 std::string(topic_name), name, TOPIC_QOS_DEFAULT);
+
+    //             if (topic == nullptr)
+    //             {
+    //                 return;
+    //             }
+
+    //         });
+    //     // Registering type and creating reader
+    //     participant->register_remote_type(
+    //         type_information,
+    //         type_name_,
+    //         callback);
+    // } 
+    // else
+    // {
+    //     internal_notify_type_object_(dynamic_type);
+    // }
     std::function<void(const std::string&, const types::DynamicType_ptr)> callback =
             [this, topic_name](const std::string& name, const types::DynamicType_ptr type)
             {
-                std::cout << "Discovered type: " << name << " from topic " << topic_name << std::endl;
+                std::cout << "-----Discovered type: " << name << " from topic " << topic_name << std::endl;
 
                 if (topic_name != subscriber_->sub_topic_  )
                     return;
-
-                if (subscriber_->mp_subscriber == nullptr)
-                {
-                    //SubscriberAttributes Rparam;
-                    //Rparam = subscriber_->att_;
-                    //Rparam.topic = subscriber_->topic_;
-                    //Rparam.topic.topicName = topic_name;
-                    //Rparam.qos = subscriber_->qos_;
-                    subscriber_->mp_subscriber = subscriber_->mp_participant->create_subscriber(
-                        SUBSCRIBER_QOS_DEFAULT, nullptr);
-
-                    if (subscriber_->mp_subscriber == nullptr)
-                    {
-                        return;
-                    }
-                }
 
                 //CREATE THE TOPIC
                 eprosima::fastdds::dds::Topic* topic = subscriber_->mp_participant->create_topic(

@@ -113,7 +113,7 @@ bool HelloWorldPublisher::init()
         "HelloWorldTopic_22222",
         type2_.get_type_name(),
         TOPIC_QOS_DEFAULT);
-    if (topic_ == nullptr)
+    if (topic2_ == nullptr)
     {
         return false;
     }
@@ -123,7 +123,7 @@ bool HelloWorldPublisher::init()
         "HelloWorldTopic_33333",
         type3_.get_type_name(),
         TOPIC_QOS_DEFAULT);
-    if (topic_ == nullptr)
+    if (topic3_ == nullptr)
     {
         return false;
     }
@@ -137,13 +137,13 @@ bool HelloWorldPublisher::init()
     }
 
     writer2_ = publisher_->create_datawriter(topic2_, DATAWRITER_QOS_DEFAULT, &listener_);
-    if (writer_ == nullptr)
+    if (writer2_ == nullptr)
     {
         return false;
     }
 
     writer3_ = publisher_->create_datawriter(topic3_, DATAWRITER_QOS_DEFAULT, &listener_);
-    if (writer_ == nullptr)
+    if (writer3_ == nullptr)
     {
         return false;
     }
@@ -200,7 +200,5 @@ void HelloWorldPublisher::run()
         ++msgsent;
         std::this_thread::sleep_for(std::chrono::milliseconds(250)); // Sleep 250 ms
     }
-
-   
 
 }

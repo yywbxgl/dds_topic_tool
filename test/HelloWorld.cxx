@@ -35,7 +35,7 @@ using namespace eprosima::fastcdr::exception;
 
 #include <utility>
 
-#define HelloWorld_test_3_max_cdr_typesize 792ULL;
+#define HelloWorld_test_3_max_cdr_typesize 1056ULL;
 #define HelloWorld_test_2_max_cdr_typesize 528ULL;
 #define HelloWorld_max_cdr_typesize 264ULL;
 #define HelloWorld_test_3_max_key_cdr_typesize 0ULL;
@@ -471,11 +471,11 @@ void HelloWorld_test_2::serializeKey(
 
 HelloWorld_test_3::HelloWorld_test_3()
 {
-    // unsigned long m_index
+    // long m_index
     m_index = 0;
     // string m_message
     m_message ="";
-    // HelloWorld m_aaa
+    // HelloWorld_test_2 m_aaa
 
     // HelloWorld m_bbb
 
@@ -567,7 +567,7 @@ size_t HelloWorld_test_3::getCdrSerializedSize(
 
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4) + data.message().size() + 1;
 
-    current_alignment += HelloWorld::getCdrSerializedSize(data.aaa(), current_alignment);
+    current_alignment += HelloWorld_test_2::getCdrSerializedSize(data.aaa(), current_alignment);
     current_alignment += HelloWorld::getCdrSerializedSize(data.bbb(), current_alignment);
 
     return current_alignment - initial_alignment;
@@ -599,7 +599,7 @@ void HelloWorld_test_3::deserialize(
  * @param _index New value for member index
  */
 void HelloWorld_test_3::index(
-        uint32_t _index)
+        int32_t _index)
 {
     m_index = _index;
 }
@@ -608,7 +608,7 @@ void HelloWorld_test_3::index(
  * @brief This function returns the value of member index
  * @return Value of member index
  */
-uint32_t HelloWorld_test_3::index() const
+int32_t HelloWorld_test_3::index() const
 {
     return m_index;
 }
@@ -617,7 +617,7 @@ uint32_t HelloWorld_test_3::index() const
  * @brief This function returns a reference to member index
  * @return Reference to member index
  */
-uint32_t& HelloWorld_test_3::index()
+int32_t& HelloWorld_test_3::index()
 {
     return m_index;
 }
@@ -664,7 +664,7 @@ std::string& HelloWorld_test_3::message()
  * @param _aaa New value to be copied in member aaa
  */
 void HelloWorld_test_3::aaa(
-        const HelloWorld& _aaa)
+        const HelloWorld_test_2& _aaa)
 {
     m_aaa = _aaa;
 }
@@ -674,7 +674,7 @@ void HelloWorld_test_3::aaa(
  * @param _aaa New value to be moved in member aaa
  */
 void HelloWorld_test_3::aaa(
-        HelloWorld&& _aaa)
+        HelloWorld_test_2&& _aaa)
 {
     m_aaa = std::move(_aaa);
 }
@@ -683,7 +683,7 @@ void HelloWorld_test_3::aaa(
  * @brief This function returns a constant reference to member aaa
  * @return Constant reference to member aaa
  */
-const HelloWorld& HelloWorld_test_3::aaa() const
+const HelloWorld_test_2& HelloWorld_test_3::aaa() const
 {
     return m_aaa;
 }
@@ -692,7 +692,7 @@ const HelloWorld& HelloWorld_test_3::aaa() const
  * @brief This function returns a reference to member aaa
  * @return Reference to member aaa
  */
-HelloWorld& HelloWorld_test_3::aaa()
+HelloWorld_test_2& HelloWorld_test_3::aaa()
 {
     return m_aaa;
 }
