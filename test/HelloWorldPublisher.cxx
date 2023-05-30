@@ -44,9 +44,9 @@ HelloWorldPublisher::HelloWorldPublisher()
     , writer_(nullptr)
     , writer2_(nullptr)
     , writer3_(nullptr)
-    , type_(new HelloWorldPubSubType())
-    , type2_(new HelloWorld_test_2PubSubType())
-    , type3_(new HelloWorld_test_3PubSubType())
+    , type_(new TimeTestPubSubType() )
+    , type2_(new HeaderTestPubSubType())
+    , type3_(new HelloWorldTestPubSubType())
 {
 }
 
@@ -90,6 +90,8 @@ bool HelloWorldPublisher::init()
 
     //REGISTER THE TYPE
     registerHelloWorldTypes();
+    // type_.get()->auto_fill_type_information(false);
+    // type_.get()->auto_fill_type_object(false); 
     type_.register_type(participant_);
     type2_.register_type(participant_);
     type3_.register_type(participant_);
@@ -175,25 +177,28 @@ void HelloWorldPublisher::PubListener::on_publication_matched(
 
 void HelloWorldPublisher::run()
 {
-    HelloWorld st;
-    HelloWorld_test_2 st2;
-    HelloWorld_test_3 st3;
+    TimeTest st;
+    HeaderTest st2;
+    HelloWorldTest st3;
     /* Initialize your structure here */
     int msgsent = 0;
     while(1) {
-        st.index(msgsent);
-        st2.message("test1");
-        writer_->write(&st);
+        auto now = std::chrono::system_clock::now();
+        auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(now);
+        auto nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(now - seconds);
+        st.sec(seconds.time_since_epoch().count());
+        st.nanosec(nanos.count());
+        // writer_->write(&st);
         std::cout << "Sending sample, count=" << msgsent << std::endl;
 
-        st2.index(msgsent);
-        st2.message("test2");
-        writer2_->write(&st2);
+        st2.stamp(st);
+        st2.frame_id("frame_test2");
+        // writer2_->write(&st2);
         std::cout << "Sending sample, count=" << msgsent << std::endl;
 
+        st3.head(st2);
+        st3.message("this is a meesage for test.");
         st3.index(msgsent);
-        st3.message("test3");
-        st3.aaa().index(msgsent);
         writer3_->write(&st3);
         std::cout << "Sending sample, count=" << msgsent << std::endl;
 

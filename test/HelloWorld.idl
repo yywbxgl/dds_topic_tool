@@ -1,23 +1,21 @@
-struct HelloWorld
+struct TimeTest
 {
-	unsigned long index;
-	string message;
+    long sec; 
+    unsigned long nanosec; 
 };
 
 
-struct HelloWorld_test_2
+struct HeaderTest
 {
-	unsigned long index;
-	string message;
-	HelloWorld aaaa;
+    TimeTest stamp; 
+    string frame_id; 
 };
 
 
 
-struct HelloWorld_test_3
+struct HelloWorldTest
 {
-    long index;
+	HeaderTest head;
 	string message;
-	HelloWorld_test_2 aaa;
-	HelloWorld bbb;
+	long index;
 };

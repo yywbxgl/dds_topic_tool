@@ -21,7 +21,6 @@
 
 
 #include "HelloWorldPublisher.h"
-#include "HelloWorldSubscriber.h"
 
 int main(
         int argc,
@@ -66,12 +65,12 @@ int main(
         }
         case 2:
         {
-            HelloWorldSubscriber mysub;
-            if (mysub.init())
-            {
-                mysub.run();
-            }
-            break;
+            // HelloWorldSubscriber mysub;
+            // if (mysub.init())
+            // {
+            //     mysub.run();
+            // }
+            // break;
         }
     }
 

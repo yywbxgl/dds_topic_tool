@@ -64,109 +64,103 @@ class Cdr;
 
 
 /*!
- * @brief This class represents the structure HelloWorld defined by the user in the IDL file.
+ * @brief This class represents the structure TimeTest defined by the user in the IDL file.
  * @ingroup HELLOWORLD
  */
-class HelloWorld
+class TimeTest
 {
 public:
 
     /*!
      * @brief Default constructor.
      */
-    eProsima_user_DllExport HelloWorld();
+    eProsima_user_DllExport TimeTest();
 
     /*!
      * @brief Default destructor.
      */
-    eProsima_user_DllExport ~HelloWorld();
+    eProsima_user_DllExport ~TimeTest();
 
     /*!
      * @brief Copy constructor.
-     * @param x Reference to the object HelloWorld that will be copied.
+     * @param x Reference to the object TimeTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld(
-            const HelloWorld& x);
+    eProsima_user_DllExport TimeTest(
+            const TimeTest& x);
 
     /*!
      * @brief Move constructor.
-     * @param x Reference to the object HelloWorld that will be copied.
+     * @param x Reference to the object TimeTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld(
-            HelloWorld&& x) noexcept;
+    eProsima_user_DllExport TimeTest(
+            TimeTest&& x) noexcept;
 
     /*!
      * @brief Copy assignment.
-     * @param x Reference to the object HelloWorld that will be copied.
+     * @param x Reference to the object TimeTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld& operator =(
-            const HelloWorld& x);
+    eProsima_user_DllExport TimeTest& operator =(
+            const TimeTest& x);
 
     /*!
      * @brief Move assignment.
-     * @param x Reference to the object HelloWorld that will be copied.
+     * @param x Reference to the object TimeTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld& operator =(
-            HelloWorld&& x) noexcept;
+    eProsima_user_DllExport TimeTest& operator =(
+            TimeTest&& x) noexcept;
 
     /*!
      * @brief Comparison operator.
-     * @param x HelloWorld object to compare.
+     * @param x TimeTest object to compare.
      */
     eProsima_user_DllExport bool operator ==(
-            const HelloWorld& x) const;
+            const TimeTest& x) const;
 
     /*!
      * @brief Comparison operator.
-     * @param x HelloWorld object to compare.
+     * @param x TimeTest object to compare.
      */
     eProsima_user_DllExport bool operator !=(
-            const HelloWorld& x) const;
+            const TimeTest& x) const;
 
     /*!
-     * @brief This function sets a value in member index
-     * @param _index New value for member index
+     * @brief This function sets a value in member sec
+     * @param _sec New value for member sec
      */
-    eProsima_user_DllExport void index(
-            uint32_t _index);
+    eProsima_user_DllExport void sec(
+            int32_t _sec);
 
     /*!
-     * @brief This function returns the value of member index
-     * @return Value of member index
+     * @brief This function returns the value of member sec
+     * @return Value of member sec
      */
-    eProsima_user_DllExport uint32_t index() const;
+    eProsima_user_DllExport int32_t sec() const;
 
     /*!
-     * @brief This function returns a reference to member index
-     * @return Reference to member index
+     * @brief This function returns a reference to member sec
+     * @return Reference to member sec
      */
-    eProsima_user_DllExport uint32_t& index();
+    eProsima_user_DllExport int32_t& sec();
 
     /*!
-     * @brief This function copies the value in member message
-     * @param _message New value to be copied in member message
+     * @brief This function sets a value in member nanosec
+     * @param _nanosec New value for member nanosec
      */
-    eProsima_user_DllExport void message(
-            const std::string& _message);
+    eProsima_user_DllExport void nanosec(
+            uint32_t _nanosec);
 
     /*!
-     * @brief This function moves the value in member message
-     * @param _message New value to be moved in member message
+     * @brief This function returns the value of member nanosec
+     * @return Value of member nanosec
      */
-    eProsima_user_DllExport void message(
-            std::string&& _message);
+    eProsima_user_DllExport uint32_t nanosec() const;
 
     /*!
-     * @brief This function returns a constant reference to member message
-     * @return Constant reference to member message
+     * @brief This function returns a reference to member nanosec
+     * @return Reference to member nanosec
      */
-    eProsima_user_DllExport const std::string& message() const;
+    eProsima_user_DllExport uint32_t& nanosec();
 
-    /*!
-     * @brief This function returns a reference to member message
-     * @return Reference to member message
-     */
-    eProsima_user_DllExport std::string& message();
 
     /*!
     * @brief This function returns the maximum serialized size of an object
@@ -184,7 +178,7 @@ public:
      * @return Serialized size.
      */
     eProsima_user_DllExport static size_t getCdrSerializedSize(
-            const HelloWorld& data,
+            const TimeTest& data,
             size_t current_alignment = 0);
 
 
@@ -227,139 +221,120 @@ public:
 
 private:
 
-    uint32_t m_index;
-    std::string m_message;
+    int32_t m_sec;
+    uint32_t m_nanosec;
 
 };
 /*!
- * @brief This class represents the structure HelloWorld_test_2 defined by the user in the IDL file.
+ * @brief This class represents the structure HeaderTest defined by the user in the IDL file.
  * @ingroup HELLOWORLD
  */
-class HelloWorld_test_2
+class HeaderTest
 {
 public:
 
     /*!
      * @brief Default constructor.
      */
-    eProsima_user_DllExport HelloWorld_test_2();
+    eProsima_user_DllExport HeaderTest();
 
     /*!
      * @brief Default destructor.
      */
-    eProsima_user_DllExport ~HelloWorld_test_2();
+    eProsima_user_DllExport ~HeaderTest();
 
     /*!
      * @brief Copy constructor.
-     * @param x Reference to the object HelloWorld_test_2 that will be copied.
+     * @param x Reference to the object HeaderTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_2(
-            const HelloWorld_test_2& x);
+    eProsima_user_DllExport HeaderTest(
+            const HeaderTest& x);
 
     /*!
      * @brief Move constructor.
-     * @param x Reference to the object HelloWorld_test_2 that will be copied.
+     * @param x Reference to the object HeaderTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_2(
-            HelloWorld_test_2&& x) noexcept;
+    eProsima_user_DllExport HeaderTest(
+            HeaderTest&& x) noexcept;
 
     /*!
      * @brief Copy assignment.
-     * @param x Reference to the object HelloWorld_test_2 that will be copied.
+     * @param x Reference to the object HeaderTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_2& operator =(
-            const HelloWorld_test_2& x);
+    eProsima_user_DllExport HeaderTest& operator =(
+            const HeaderTest& x);
 
     /*!
      * @brief Move assignment.
-     * @param x Reference to the object HelloWorld_test_2 that will be copied.
+     * @param x Reference to the object HeaderTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_2& operator =(
-            HelloWorld_test_2&& x) noexcept;
+    eProsima_user_DllExport HeaderTest& operator =(
+            HeaderTest&& x) noexcept;
 
     /*!
      * @brief Comparison operator.
-     * @param x HelloWorld_test_2 object to compare.
+     * @param x HeaderTest object to compare.
      */
     eProsima_user_DllExport bool operator ==(
-            const HelloWorld_test_2& x) const;
+            const HeaderTest& x) const;
 
     /*!
      * @brief Comparison operator.
-     * @param x HelloWorld_test_2 object to compare.
+     * @param x HeaderTest object to compare.
      */
     eProsima_user_DllExport bool operator !=(
-            const HelloWorld_test_2& x) const;
+            const HeaderTest& x) const;
 
     /*!
-     * @brief This function sets a value in member index
-     * @param _index New value for member index
+     * @brief This function copies the value in member stamp
+     * @param _stamp New value to be copied in member stamp
      */
-    eProsima_user_DllExport void index(
-            uint32_t _index);
+    eProsima_user_DllExport void stamp(
+            const TimeTest& _stamp);
 
     /*!
-     * @brief This function returns the value of member index
-     * @return Value of member index
+     * @brief This function moves the value in member stamp
+     * @param _stamp New value to be moved in member stamp
      */
-    eProsima_user_DllExport uint32_t index() const;
+    eProsima_user_DllExport void stamp(
+            TimeTest&& _stamp);
 
     /*!
-     * @brief This function returns a reference to member index
-     * @return Reference to member index
+     * @brief This function returns a constant reference to member stamp
+     * @return Constant reference to member stamp
      */
-    eProsima_user_DllExport uint32_t& index();
+    eProsima_user_DllExport const TimeTest& stamp() const;
 
     /*!
-     * @brief This function copies the value in member message
-     * @param _message New value to be copied in member message
+     * @brief This function returns a reference to member stamp
+     * @return Reference to member stamp
      */
-    eProsima_user_DllExport void message(
-            const std::string& _message);
+    eProsima_user_DllExport TimeTest& stamp();
+    /*!
+     * @brief This function copies the value in member frame_id
+     * @param _frame_id New value to be copied in member frame_id
+     */
+    eProsima_user_DllExport void frame_id(
+            const std::string& _frame_id);
 
     /*!
-     * @brief This function moves the value in member message
-     * @param _message New value to be moved in member message
+     * @brief This function moves the value in member frame_id
+     * @param _frame_id New value to be moved in member frame_id
      */
-    eProsima_user_DllExport void message(
-            std::string&& _message);
+    eProsima_user_DllExport void frame_id(
+            std::string&& _frame_id);
 
     /*!
-     * @brief This function returns a constant reference to member message
-     * @return Constant reference to member message
+     * @brief This function returns a constant reference to member frame_id
+     * @return Constant reference to member frame_id
      */
-    eProsima_user_DllExport const std::string& message() const;
+    eProsima_user_DllExport const std::string& frame_id() const;
 
     /*!
-     * @brief This function returns a reference to member message
-     * @return Reference to member message
+     * @brief This function returns a reference to member frame_id
+     * @return Reference to member frame_id
      */
-    eProsima_user_DllExport std::string& message();
-    /*!
-     * @brief This function copies the value in member aaaa
-     * @param _aaaa New value to be copied in member aaaa
-     */
-    eProsima_user_DllExport void aaaa(
-            const HelloWorld& _aaaa);
-
-    /*!
-     * @brief This function moves the value in member aaaa
-     * @param _aaaa New value to be moved in member aaaa
-     */
-    eProsima_user_DllExport void aaaa(
-            HelloWorld&& _aaaa);
-
-    /*!
-     * @brief This function returns a constant reference to member aaaa
-     * @return Constant reference to member aaaa
-     */
-    eProsima_user_DllExport const HelloWorld& aaaa() const;
-
-    /*!
-     * @brief This function returns a reference to member aaaa
-     * @return Reference to member aaaa
-     */
-    eProsima_user_DllExport HelloWorld& aaaa();
+    eProsima_user_DllExport std::string& frame_id();
 
     /*!
     * @brief This function returns the maximum serialized size of an object
@@ -377,7 +352,7 @@ public:
      * @return Serialized size.
      */
     eProsima_user_DllExport static size_t getCdrSerializedSize(
-            const HelloWorld_test_2& data,
+            const HeaderTest& data,
             size_t current_alignment = 0);
 
 
@@ -420,71 +395,120 @@ public:
 
 private:
 
-    uint32_t m_index;
-    std::string m_message;
-    HelloWorld m_aaaa;
+    TimeTest m_stamp;
+    std::string m_frame_id;
 
 };
 /*!
- * @brief This class represents the structure HelloWorld_test_3 defined by the user in the IDL file.
+ * @brief This class represents the structure HelloWorldTest defined by the user in the IDL file.
  * @ingroup HELLOWORLD
  */
-class HelloWorld_test_3
+class HelloWorldTest
 {
 public:
 
     /*!
      * @brief Default constructor.
      */
-    eProsima_user_DllExport HelloWorld_test_3();
+    eProsima_user_DllExport HelloWorldTest();
 
     /*!
      * @brief Default destructor.
      */
-    eProsima_user_DllExport ~HelloWorld_test_3();
+    eProsima_user_DllExport ~HelloWorldTest();
 
     /*!
      * @brief Copy constructor.
-     * @param x Reference to the object HelloWorld_test_3 that will be copied.
+     * @param x Reference to the object HelloWorldTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_3(
-            const HelloWorld_test_3& x);
+    eProsima_user_DllExport HelloWorldTest(
+            const HelloWorldTest& x);
 
     /*!
      * @brief Move constructor.
-     * @param x Reference to the object HelloWorld_test_3 that will be copied.
+     * @param x Reference to the object HelloWorldTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_3(
-            HelloWorld_test_3&& x) noexcept;
+    eProsima_user_DllExport HelloWorldTest(
+            HelloWorldTest&& x) noexcept;
 
     /*!
      * @brief Copy assignment.
-     * @param x Reference to the object HelloWorld_test_3 that will be copied.
+     * @param x Reference to the object HelloWorldTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_3& operator =(
-            const HelloWorld_test_3& x);
+    eProsima_user_DllExport HelloWorldTest& operator =(
+            const HelloWorldTest& x);
 
     /*!
      * @brief Move assignment.
-     * @param x Reference to the object HelloWorld_test_3 that will be copied.
+     * @param x Reference to the object HelloWorldTest that will be copied.
      */
-    eProsima_user_DllExport HelloWorld_test_3& operator =(
-            HelloWorld_test_3&& x) noexcept;
+    eProsima_user_DllExport HelloWorldTest& operator =(
+            HelloWorldTest&& x) noexcept;
 
     /*!
      * @brief Comparison operator.
-     * @param x HelloWorld_test_3 object to compare.
+     * @param x HelloWorldTest object to compare.
      */
     eProsima_user_DllExport bool operator ==(
-            const HelloWorld_test_3& x) const;
+            const HelloWorldTest& x) const;
 
     /*!
      * @brief Comparison operator.
-     * @param x HelloWorld_test_3 object to compare.
+     * @param x HelloWorldTest object to compare.
      */
     eProsima_user_DllExport bool operator !=(
-            const HelloWorld_test_3& x) const;
+            const HelloWorldTest& x) const;
 
+    /*!
+     * @brief This function copies the value in member head
+     * @param _head New value to be copied in member head
+     */
+    eProsima_user_DllExport void head(
+            const HeaderTest& _head);
+
+    /*!
+     * @brief This function moves the value in member head
+     * @param _head New value to be moved in member head
+     */
+    eProsima_user_DllExport void head(
+            HeaderTest&& _head);
+
+    /*!
+     * @brief This function returns a constant reference to member head
+     * @return Constant reference to member head
+     */
+    eProsima_user_DllExport const HeaderTest& head() const;
+
+    /*!
+     * @brief This function returns a reference to member head
+     * @return Reference to member head
+     */
+    eProsima_user_DllExport HeaderTest& head();
+    /*!
+     * @brief This function copies the value in member message
+     * @param _message New value to be copied in member message
+     */
+    eProsima_user_DllExport void message(
+            const std::string& _message);
+
+    /*!
+     * @brief This function moves the value in member message
+     * @param _message New value to be moved in member message
+     */
+    eProsima_user_DllExport void message(
+            std::string&& _message);
+
+    /*!
+     * @brief This function returns a constant reference to member message
+     * @return Constant reference to member message
+     */
+    eProsima_user_DllExport const std::string& message() const;
+
+    /*!
+     * @brief This function returns a reference to member message
+     * @return Reference to member message
+     */
+    eProsima_user_DllExport std::string& message();
     /*!
      * @brief This function sets a value in member index
      * @param _index New value for member index
@@ -504,81 +528,6 @@ public:
      */
     eProsima_user_DllExport int32_t& index();
 
-    /*!
-     * @brief This function copies the value in member message
-     * @param _message New value to be copied in member message
-     */
-    eProsima_user_DllExport void message(
-            const std::string& _message);
-
-    /*!
-     * @brief This function moves the value in member message
-     * @param _message New value to be moved in member message
-     */
-    eProsima_user_DllExport void message(
-            std::string&& _message);
-
-    /*!
-     * @brief This function returns a constant reference to member message
-     * @return Constant reference to member message
-     */
-    eProsima_user_DllExport const std::string& message() const;
-
-    /*!
-     * @brief This function returns a reference to member message
-     * @return Reference to member message
-     */
-    eProsima_user_DllExport std::string& message();
-    /*!
-     * @brief This function copies the value in member aaa
-     * @param _aaa New value to be copied in member aaa
-     */
-    eProsima_user_DllExport void aaa(
-            const HelloWorld_test_2& _aaa);
-
-    /*!
-     * @brief This function moves the value in member aaa
-     * @param _aaa New value to be moved in member aaa
-     */
-    eProsima_user_DllExport void aaa(
-            HelloWorld_test_2&& _aaa);
-
-    /*!
-     * @brief This function returns a constant reference to member aaa
-     * @return Constant reference to member aaa
-     */
-    eProsima_user_DllExport const HelloWorld_test_2& aaa() const;
-
-    /*!
-     * @brief This function returns a reference to member aaa
-     * @return Reference to member aaa
-     */
-    eProsima_user_DllExport HelloWorld_test_2& aaa();
-    /*!
-     * @brief This function copies the value in member bbb
-     * @param _bbb New value to be copied in member bbb
-     */
-    eProsima_user_DllExport void bbb(
-            const HelloWorld& _bbb);
-
-    /*!
-     * @brief This function moves the value in member bbb
-     * @param _bbb New value to be moved in member bbb
-     */
-    eProsima_user_DllExport void bbb(
-            HelloWorld&& _bbb);
-
-    /*!
-     * @brief This function returns a constant reference to member bbb
-     * @return Constant reference to member bbb
-     */
-    eProsima_user_DllExport const HelloWorld& bbb() const;
-
-    /*!
-     * @brief This function returns a reference to member bbb
-     * @return Reference to member bbb
-     */
-    eProsima_user_DllExport HelloWorld& bbb();
 
     /*!
     * @brief This function returns the maximum serialized size of an object
@@ -596,7 +545,7 @@ public:
      * @return Serialized size.
      */
     eProsima_user_DllExport static size_t getCdrSerializedSize(
-            const HelloWorld_test_3& data,
+            const HelloWorldTest& data,
             size_t current_alignment = 0);
 
 
@@ -639,10 +588,9 @@ public:
 
 private:
 
-    int32_t m_index;
+    HeaderTest m_head;
     std::string m_message;
-    HelloWorld_test_2 m_aaa;
-    HelloWorld m_bbb;
+    int32_t m_index;
 
 };
 

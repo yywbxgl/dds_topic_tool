@@ -28,20 +28,20 @@
 using SerializedPayload_t = eprosima::fastrtps::rtps::SerializedPayload_t;
 using InstanceHandle_t = eprosima::fastrtps::rtps::InstanceHandle_t;
 
-HelloWorldPubSubType::HelloWorldPubSubType()
+TimeTestPubSubType::TimeTestPubSubType()
 {
-    setName("HelloWorld");
-    auto type_size = HelloWorld::getMaxCdrSerializedSize();
+    setName("TimeTest");
+    auto type_size = TimeTest::getMaxCdrSerializedSize();
     type_size += eprosima::fastcdr::Cdr::alignment(type_size, 4); /* possible submessage alignment */
     m_typeSize = static_cast<uint32_t>(type_size) + 4; /*encapsulation*/
-    m_isGetKeyDefined = HelloWorld::isKeyDefined();
-    size_t keyLength = HelloWorld::getKeyMaxCdrSerializedSize() > 16 ?
-            HelloWorld::getKeyMaxCdrSerializedSize() : 16;
+    m_isGetKeyDefined = TimeTest::isKeyDefined();
+    size_t keyLength = TimeTest::getKeyMaxCdrSerializedSize() > 16 ?
+            TimeTest::getKeyMaxCdrSerializedSize() : 16;
     m_keyBuffer = reinterpret_cast<unsigned char*>(malloc(keyLength));
     memset(m_keyBuffer, 0, keyLength);
 }
 
-HelloWorldPubSubType::~HelloWorldPubSubType()
+TimeTestPubSubType::~TimeTestPubSubType()
 {
     if (m_keyBuffer != nullptr)
     {
@@ -49,11 +49,11 @@ HelloWorldPubSubType::~HelloWorldPubSubType()
     }
 }
 
-bool HelloWorldPubSubType::serialize(
+bool TimeTestPubSubType::serialize(
         void* data,
         SerializedPayload_t* payload)
 {
-    HelloWorld* p_type = static_cast<HelloWorld*>(data);
+    TimeTest* p_type = static_cast<TimeTest*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->max_size);
@@ -78,14 +78,14 @@ bool HelloWorldPubSubType::serialize(
     return true;
 }
 
-bool HelloWorldPubSubType::deserialize(
+bool TimeTestPubSubType::deserialize(
         SerializedPayload_t* payload,
         void* data)
 {
     try
     {
         //Convert DATA to pointer of your type
-        HelloWorld* p_type = static_cast<HelloWorld*>(data);
+        TimeTest* p_type = static_cast<TimeTest*>(data);
 
         // Object that manages the raw buffer.
         eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->length);
@@ -108,28 +108,28 @@ bool HelloWorldPubSubType::deserialize(
     return true;
 }
 
-std::function<uint32_t()> HelloWorldPubSubType::getSerializedSizeProvider(
+std::function<uint32_t()> TimeTestPubSubType::getSerializedSizeProvider(
         void* data)
 {
     return [data]() -> uint32_t
            {
-               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<HelloWorld*>(data))) +
+               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<TimeTest*>(data))) +
                       4u /*encapsulation*/;
            };
 }
 
-void* HelloWorldPubSubType::createData()
+void* TimeTestPubSubType::createData()
 {
-    return reinterpret_cast<void*>(new HelloWorld());
+    return reinterpret_cast<void*>(new TimeTest());
 }
 
-void HelloWorldPubSubType::deleteData(
+void TimeTestPubSubType::deleteData(
         void* data)
 {
-    delete(reinterpret_cast<HelloWorld*>(data));
+    delete(reinterpret_cast<TimeTest*>(data));
 }
 
-bool HelloWorldPubSubType::getKey(
+bool TimeTestPubSubType::getKey(
         void* data,
         InstanceHandle_t* handle,
         bool force_md5)
@@ -139,16 +139,16 @@ bool HelloWorldPubSubType::getKey(
         return false;
     }
 
-    HelloWorld* p_type = static_cast<HelloWorld*>(data);
+    TimeTest* p_type = static_cast<TimeTest*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(m_keyBuffer),
-            HelloWorld::getKeyMaxCdrSerializedSize());
+            TimeTest::getKeyMaxCdrSerializedSize());
 
     // Object that serializes the data.
     eprosima::fastcdr::Cdr ser(fastbuffer, eprosima::fastcdr::Cdr::BIG_ENDIANNESS);
     p_type->serializeKey(ser);
-    if (force_md5 || HelloWorld::getKeyMaxCdrSerializedSize() > 16)
+    if (force_md5 || TimeTest::getKeyMaxCdrSerializedSize() > 16)
     {
         m_md5.init();
         m_md5.update(m_keyBuffer, static_cast<unsigned int>(ser.getSerializedDataLength()));
@@ -168,20 +168,20 @@ bool HelloWorldPubSubType::getKey(
     return true;
 }
 
-HelloWorld_test_2PubSubType::HelloWorld_test_2PubSubType()
+HeaderTestPubSubType::HeaderTestPubSubType()
 {
-    setName("HelloWorld_test_2");
-    auto type_size = HelloWorld_test_2::getMaxCdrSerializedSize();
+    setName("HeaderTest");
+    auto type_size = HeaderTest::getMaxCdrSerializedSize();
     type_size += eprosima::fastcdr::Cdr::alignment(type_size, 4); /* possible submessage alignment */
     m_typeSize = static_cast<uint32_t>(type_size) + 4; /*encapsulation*/
-    m_isGetKeyDefined = HelloWorld_test_2::isKeyDefined();
-    size_t keyLength = HelloWorld_test_2::getKeyMaxCdrSerializedSize() > 16 ?
-            HelloWorld_test_2::getKeyMaxCdrSerializedSize() : 16;
+    m_isGetKeyDefined = HeaderTest::isKeyDefined();
+    size_t keyLength = HeaderTest::getKeyMaxCdrSerializedSize() > 16 ?
+            HeaderTest::getKeyMaxCdrSerializedSize() : 16;
     m_keyBuffer = reinterpret_cast<unsigned char*>(malloc(keyLength));
     memset(m_keyBuffer, 0, keyLength);
 }
 
-HelloWorld_test_2PubSubType::~HelloWorld_test_2PubSubType()
+HeaderTestPubSubType::~HeaderTestPubSubType()
 {
     if (m_keyBuffer != nullptr)
     {
@@ -189,11 +189,11 @@ HelloWorld_test_2PubSubType::~HelloWorld_test_2PubSubType()
     }
 }
 
-bool HelloWorld_test_2PubSubType::serialize(
+bool HeaderTestPubSubType::serialize(
         void* data,
         SerializedPayload_t* payload)
 {
-    HelloWorld_test_2* p_type = static_cast<HelloWorld_test_2*>(data);
+    HeaderTest* p_type = static_cast<HeaderTest*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->max_size);
@@ -218,14 +218,14 @@ bool HelloWorld_test_2PubSubType::serialize(
     return true;
 }
 
-bool HelloWorld_test_2PubSubType::deserialize(
+bool HeaderTestPubSubType::deserialize(
         SerializedPayload_t* payload,
         void* data)
 {
     try
     {
         //Convert DATA to pointer of your type
-        HelloWorld_test_2* p_type = static_cast<HelloWorld_test_2*>(data);
+        HeaderTest* p_type = static_cast<HeaderTest*>(data);
 
         // Object that manages the raw buffer.
         eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->length);
@@ -248,28 +248,28 @@ bool HelloWorld_test_2PubSubType::deserialize(
     return true;
 }
 
-std::function<uint32_t()> HelloWorld_test_2PubSubType::getSerializedSizeProvider(
+std::function<uint32_t()> HeaderTestPubSubType::getSerializedSizeProvider(
         void* data)
 {
     return [data]() -> uint32_t
            {
-               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<HelloWorld_test_2*>(data))) +
+               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<HeaderTest*>(data))) +
                       4u /*encapsulation*/;
            };
 }
 
-void* HelloWorld_test_2PubSubType::createData()
+void* HeaderTestPubSubType::createData()
 {
-    return reinterpret_cast<void*>(new HelloWorld_test_2());
+    return reinterpret_cast<void*>(new HeaderTest());
 }
 
-void HelloWorld_test_2PubSubType::deleteData(
+void HeaderTestPubSubType::deleteData(
         void* data)
 {
-    delete(reinterpret_cast<HelloWorld_test_2*>(data));
+    delete(reinterpret_cast<HeaderTest*>(data));
 }
 
-bool HelloWorld_test_2PubSubType::getKey(
+bool HeaderTestPubSubType::getKey(
         void* data,
         InstanceHandle_t* handle,
         bool force_md5)
@@ -279,16 +279,16 @@ bool HelloWorld_test_2PubSubType::getKey(
         return false;
     }
 
-    HelloWorld_test_2* p_type = static_cast<HelloWorld_test_2*>(data);
+    HeaderTest* p_type = static_cast<HeaderTest*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(m_keyBuffer),
-            HelloWorld_test_2::getKeyMaxCdrSerializedSize());
+            HeaderTest::getKeyMaxCdrSerializedSize());
 
     // Object that serializes the data.
     eprosima::fastcdr::Cdr ser(fastbuffer, eprosima::fastcdr::Cdr::BIG_ENDIANNESS);
     p_type->serializeKey(ser);
-    if (force_md5 || HelloWorld_test_2::getKeyMaxCdrSerializedSize() > 16)
+    if (force_md5 || HeaderTest::getKeyMaxCdrSerializedSize() > 16)
     {
         m_md5.init();
         m_md5.update(m_keyBuffer, static_cast<unsigned int>(ser.getSerializedDataLength()));
@@ -308,20 +308,20 @@ bool HelloWorld_test_2PubSubType::getKey(
     return true;
 }
 
-HelloWorld_test_3PubSubType::HelloWorld_test_3PubSubType()
+HelloWorldTestPubSubType::HelloWorldTestPubSubType()
 {
-    setName("HelloWorld_test_3");
-    auto type_size = HelloWorld_test_3::getMaxCdrSerializedSize();
+    setName("HelloWorldTest");
+    auto type_size = HelloWorldTest::getMaxCdrSerializedSize();
     type_size += eprosima::fastcdr::Cdr::alignment(type_size, 4); /* possible submessage alignment */
     m_typeSize = static_cast<uint32_t>(type_size) + 4; /*encapsulation*/
-    m_isGetKeyDefined = HelloWorld_test_3::isKeyDefined();
-    size_t keyLength = HelloWorld_test_3::getKeyMaxCdrSerializedSize() > 16 ?
-            HelloWorld_test_3::getKeyMaxCdrSerializedSize() : 16;
+    m_isGetKeyDefined = HelloWorldTest::isKeyDefined();
+    size_t keyLength = HelloWorldTest::getKeyMaxCdrSerializedSize() > 16 ?
+            HelloWorldTest::getKeyMaxCdrSerializedSize() : 16;
     m_keyBuffer = reinterpret_cast<unsigned char*>(malloc(keyLength));
     memset(m_keyBuffer, 0, keyLength);
 }
 
-HelloWorld_test_3PubSubType::~HelloWorld_test_3PubSubType()
+HelloWorldTestPubSubType::~HelloWorldTestPubSubType()
 {
     if (m_keyBuffer != nullptr)
     {
@@ -329,11 +329,11 @@ HelloWorld_test_3PubSubType::~HelloWorld_test_3PubSubType()
     }
 }
 
-bool HelloWorld_test_3PubSubType::serialize(
+bool HelloWorldTestPubSubType::serialize(
         void* data,
         SerializedPayload_t* payload)
 {
-    HelloWorld_test_3* p_type = static_cast<HelloWorld_test_3*>(data);
+    HelloWorldTest* p_type = static_cast<HelloWorldTest*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->max_size);
@@ -358,14 +358,14 @@ bool HelloWorld_test_3PubSubType::serialize(
     return true;
 }
 
-bool HelloWorld_test_3PubSubType::deserialize(
+bool HelloWorldTestPubSubType::deserialize(
         SerializedPayload_t* payload,
         void* data)
 {
     try
     {
         //Convert DATA to pointer of your type
-        HelloWorld_test_3* p_type = static_cast<HelloWorld_test_3*>(data);
+        HelloWorldTest* p_type = static_cast<HelloWorldTest*>(data);
 
         // Object that manages the raw buffer.
         eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(payload->data), payload->length);
@@ -388,28 +388,28 @@ bool HelloWorld_test_3PubSubType::deserialize(
     return true;
 }
 
-std::function<uint32_t()> HelloWorld_test_3PubSubType::getSerializedSizeProvider(
+std::function<uint32_t()> HelloWorldTestPubSubType::getSerializedSizeProvider(
         void* data)
 {
     return [data]() -> uint32_t
            {
-               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<HelloWorld_test_3*>(data))) +
+               return static_cast<uint32_t>(type::getCdrSerializedSize(*static_cast<HelloWorldTest*>(data))) +
                       4u /*encapsulation*/;
            };
 }
 
-void* HelloWorld_test_3PubSubType::createData()
+void* HelloWorldTestPubSubType::createData()
 {
-    return reinterpret_cast<void*>(new HelloWorld_test_3());
+    return reinterpret_cast<void*>(new HelloWorldTest());
 }
 
-void HelloWorld_test_3PubSubType::deleteData(
+void HelloWorldTestPubSubType::deleteData(
         void* data)
 {
-    delete(reinterpret_cast<HelloWorld_test_3*>(data));
+    delete(reinterpret_cast<HelloWorldTest*>(data));
 }
 
-bool HelloWorld_test_3PubSubType::getKey(
+bool HelloWorldTestPubSubType::getKey(
         void* data,
         InstanceHandle_t* handle,
         bool force_md5)
@@ -419,16 +419,16 @@ bool HelloWorld_test_3PubSubType::getKey(
         return false;
     }
 
-    HelloWorld_test_3* p_type = static_cast<HelloWorld_test_3*>(data);
+    HelloWorldTest* p_type = static_cast<HelloWorldTest*>(data);
 
     // Object that manages the raw buffer.
     eprosima::fastcdr::FastBuffer fastbuffer(reinterpret_cast<char*>(m_keyBuffer),
-            HelloWorld_test_3::getKeyMaxCdrSerializedSize());
+            HelloWorldTest::getKeyMaxCdrSerializedSize());
 
     // Object that serializes the data.
     eprosima::fastcdr::Cdr ser(fastbuffer, eprosima::fastcdr::Cdr::BIG_ENDIANNESS);
     p_type->serializeKey(ser);
-    if (force_md5 || HelloWorld_test_3::getKeyMaxCdrSerializedSize() > 16)
+    if (force_md5 || HelloWorldTest::getKeyMaxCdrSerializedSize() > 16)
     {
         m_md5.init();
         m_md5.update(m_keyBuffer, static_cast<unsigned int>(ser.getSerializedDataLength()));

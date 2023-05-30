@@ -41,53 +41,53 @@ using namespace eprosima::fastrtps::rtps;
 void registerHelloWorldTypes()
 {
     TypeObjectFactory *factory = TypeObjectFactory::get_instance();
-    factory->add_type_object("HelloWorld", GetHelloWorldIdentifier(true),
-    GetHelloWorldObject(true));
-    factory->add_type_object("HelloWorld", GetHelloWorldIdentifier(false),
-    GetHelloWorldObject(false));
+    factory->add_type_object("TimeTest", GetTimeTestIdentifier(true),
+    GetTimeTestObject(true));
+    factory->add_type_object("TimeTest", GetTimeTestIdentifier(false),
+    GetTimeTestObject(false));
 
-    factory->add_type_object("HelloWorld_test_2", GetHelloWorld_test_2Identifier(true),
-    GetHelloWorld_test_2Object(true));
-    factory->add_type_object("HelloWorld_test_2", GetHelloWorld_test_2Identifier(false),
-    GetHelloWorld_test_2Object(false));
+    factory->add_type_object("HeaderTest", GetHeaderTestIdentifier(true),
+    GetHeaderTestObject(true));
+    factory->add_type_object("HeaderTest", GetHeaderTestIdentifier(false),
+    GetHeaderTestObject(false));
 
-    factory->add_type_object("HelloWorld_test_3", GetHelloWorld_test_3Identifier(true),
-    GetHelloWorld_test_3Object(true));
-    factory->add_type_object("HelloWorld_test_3", GetHelloWorld_test_3Identifier(false),
-    GetHelloWorld_test_3Object(false));
+    factory->add_type_object("HelloWorldTest", GetHelloWorldTestIdentifier(true),
+    GetHelloWorldTestObject(true));
+    factory->add_type_object("HelloWorldTest", GetHelloWorldTestIdentifier(false),
+    GetHelloWorldTestObject(false));
 
 }
 
-const TypeIdentifier* GetHelloWorldIdentifier(bool complete)
+const TypeIdentifier* GetTimeTestIdentifier(bool complete)
 {
-    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("HelloWorld", complete);
+    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("TimeTest", complete);
     if (c_identifier != nullptr && (!complete || c_identifier->_d() == EK_COMPLETE))
     {
         return c_identifier;
     }
 
-    GetHelloWorldObject(complete); // Generated inside
-    return TypeObjectFactory::get_instance()->get_type_identifier("HelloWorld", complete);
+    GetTimeTestObject(complete); // Generated inside
+    return TypeObjectFactory::get_instance()->get_type_identifier("TimeTest", complete);
 }
 
-const TypeObject* GetHelloWorldObject(bool complete)
+const TypeObject* GetTimeTestObject(bool complete)
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld", complete);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("TimeTest", complete);
     if (c_type_object != nullptr)
     {
         return c_type_object;
     }
     else if (complete)
     {
-        return GetCompleteHelloWorldObject();
+        return GetCompleteTimeTestObject();
     }
     //else
-    return GetMinimalHelloWorldObject();
+    return GetMinimalTimeTestObject();
 }
 
-const TypeObject* GetMinimalHelloWorldObject()
+const TypeObject* GetMinimalTimeTestObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld", false);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("TimeTest", false);
     if (c_type_object != nullptr)
     {
         return c_type_object;
@@ -104,42 +104,41 @@ const TypeObject* GetMinimalHelloWorldObject()
     type_object->minimal().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
 
     MemberId memberId = 0;
-    MinimalStructMember mst_index;
-    mst_index.common().member_id(memberId++);
-    mst_index.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_index.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_index.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_index.common().member_flags().IS_OPTIONAL(false);
-    mst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_index.common().member_flags().IS_KEY(false);
-    mst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
+    MinimalStructMember mst_sec;
+    mst_sec.common().member_id(memberId++);
+    mst_sec.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_sec.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_sec.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_sec.common().member_flags().IS_OPTIONAL(false);
+    mst_sec.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_sec.common().member_flags().IS_KEY(false);
+    mst_sec.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_sec.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("int32_t", false));
 
-    MD5 index_hash("index");
+    MD5 sec_hash("sec");
     for(int i = 0; i < 4; ++i)
     {
-        mst_index.detail().name_hash()[i] = index_hash.digest[i];
+        mst_sec.detail().name_hash()[i] = sec_hash.digest[i];
     }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_index);
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_sec);
 
-    MinimalStructMember mst_message;
-    mst_message.common().member_id(memberId++);
-    mst_message.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_message.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_message.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_message.common().member_flags().IS_OPTIONAL(false);
-    mst_message.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_message.common().member_flags().IS_KEY(false);
-    mst_message.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_message.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
+    MinimalStructMember mst_nanosec;
+    mst_nanosec.common().member_id(memberId++);
+    mst_nanosec.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_nanosec.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_nanosec.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_nanosec.common().member_flags().IS_OPTIONAL(false);
+    mst_nanosec.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_nanosec.common().member_flags().IS_KEY(false);
+    mst_nanosec.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_nanosec.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
 
-
-    MD5 message_hash("message");
+    MD5 nanosec_hash("nanosec");
     for(int i = 0; i < 4; ++i)
     {
-        mst_message.detail().name_hash()[i] = message_hash.digest[i];
+        mst_nanosec.detail().name_hash()[i] = nanosec_hash.digest[i];
     }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_message);
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_nanosec);
 
 
     // Header
@@ -169,14 +168,14 @@ const TypeObject* GetMinimalHelloWorldObject()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("HelloWorld", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("TimeTest", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("HelloWorld", false);
+    return TypeObjectFactory::get_instance()->get_type_object("TimeTest", false);
 }
 
-const TypeObject* GetCompleteHelloWorldObject()
+const TypeObject* GetCompleteTimeTestObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld", true);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("TimeTest", true);
     if (c_type_object != nullptr && c_type_object->_d() == EK_COMPLETE)
     {
         return c_type_object;
@@ -193,40 +192,39 @@ const TypeObject* GetCompleteHelloWorldObject()
     type_object->complete().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
 
     MemberId memberId = 0;
-    CompleteStructMember cst_index;
-    cst_index.common().member_id(memberId++);
-    cst_index.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_index.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_index.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_index.common().member_flags().IS_OPTIONAL(false);
-    cst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_index.common().member_flags().IS_KEY(false);
-    cst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
+    CompleteStructMember cst_sec;
+    cst_sec.common().member_id(memberId++);
+    cst_sec.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_sec.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_sec.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_sec.common().member_flags().IS_OPTIONAL(false);
+    cst_sec.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_sec.common().member_flags().IS_KEY(false);
+    cst_sec.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_sec.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("int32_t", false));
 
-    cst_index.detail().name("index");
+    cst_sec.detail().name("sec");
 
-    type_object->complete().struct_type().member_seq().emplace_back(cst_index);
+    type_object->complete().struct_type().member_seq().emplace_back(cst_sec);
 
-    CompleteStructMember cst_message;
-    cst_message.common().member_id(memberId++);
-    cst_message.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_message.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_message.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_message.common().member_flags().IS_OPTIONAL(false);
-    cst_message.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_message.common().member_flags().IS_KEY(false);
-    cst_message.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_message.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
+    CompleteStructMember cst_nanosec;
+    cst_nanosec.common().member_id(memberId++);
+    cst_nanosec.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_nanosec.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_nanosec.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_nanosec.common().member_flags().IS_OPTIONAL(false);
+    cst_nanosec.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_nanosec.common().member_flags().IS_KEY(false);
+    cst_nanosec.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_nanosec.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
 
+    cst_nanosec.detail().name("nanosec");
 
-    cst_message.detail().name("message");
-
-    type_object->complete().struct_type().member_seq().emplace_back(cst_message);
+    type_object->complete().struct_type().member_seq().emplace_back(cst_nanosec);
 
 
     // Header
-    type_object->complete().struct_type().header().detail().type_name("HelloWorld");
+    type_object->complete().struct_type().header().detail().type_name("TimeTest");
     // TODO inheritance
 
 
@@ -252,41 +250,41 @@ const TypeObject* GetCompleteHelloWorldObject()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("HelloWorld", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("TimeTest", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("HelloWorld", true);
+    return TypeObjectFactory::get_instance()->get_type_object("TimeTest", true);
 }
 
-const TypeIdentifier* GetHelloWorld_test_2Identifier(bool complete)
+const TypeIdentifier* GetHeaderTestIdentifier(bool complete)
 {
-    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("HelloWorld_test_2", complete);
+    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("HeaderTest", complete);
     if (c_identifier != nullptr && (!complete || c_identifier->_d() == EK_COMPLETE))
     {
         return c_identifier;
     }
 
-    GetHelloWorld_test_2Object(complete); // Generated inside
-    return TypeObjectFactory::get_instance()->get_type_identifier("HelloWorld_test_2", complete);
+    GetHeaderTestObject(complete); // Generated inside
+    return TypeObjectFactory::get_instance()->get_type_identifier("HeaderTest", complete);
 }
 
-const TypeObject* GetHelloWorld_test_2Object(bool complete)
+const TypeObject* GetHeaderTestObject(bool complete)
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_2", complete);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HeaderTest", complete);
     if (c_type_object != nullptr)
     {
         return c_type_object;
     }
     else if (complete)
     {
-        return GetCompleteHelloWorld_test_2Object();
+        return GetCompleteHeaderTestObject();
     }
     //else
-    return GetMinimalHelloWorld_test_2Object();
+    return GetMinimalHeaderTestObject();
 }
 
-const TypeObject* GetMinimalHelloWorld_test_2Object()
+const TypeObject* GetMinimalHeaderTestObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_2", false);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HeaderTest", false);
     if (c_type_object != nullptr)
     {
         return c_type_object;
@@ -303,59 +301,41 @@ const TypeObject* GetMinimalHelloWorld_test_2Object()
     type_object->minimal().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
 
     MemberId memberId = 0;
-    MinimalStructMember mst_index;
-    mst_index.common().member_id(memberId++);
-    mst_index.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_index.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_index.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_index.common().member_flags().IS_OPTIONAL(false);
-    mst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_index.common().member_flags().IS_KEY(false);
-    mst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
-
-    MD5 index_hash("index");
+    MinimalStructMember mst_stamp;
+    mst_stamp.common().member_id(memberId++);
+    mst_stamp.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_stamp.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_stamp.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_stamp.common().member_flags().IS_OPTIONAL(false);
+    mst_stamp.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_stamp.common().member_flags().IS_KEY(false);
+    mst_stamp.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_stamp.common().member_type_id(*GetTimeTestIdentifier(false));
+    MD5 stamp_hash("stamp");
     for(int i = 0; i < 4; ++i)
     {
-        mst_index.detail().name_hash()[i] = index_hash.digest[i];
+        mst_stamp.detail().name_hash()[i] = stamp_hash.digest[i];
     }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_index);
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_stamp);
 
-    MinimalStructMember mst_message;
-    mst_message.common().member_id(memberId++);
-    mst_message.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_message.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_message.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_message.common().member_flags().IS_OPTIONAL(false);
-    mst_message.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_message.common().member_flags().IS_KEY(false);
-    mst_message.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_message.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
+    MinimalStructMember mst_frame_id;
+    mst_frame_id.common().member_id(memberId++);
+    mst_frame_id.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_frame_id.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_frame_id.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_frame_id.common().member_flags().IS_OPTIONAL(false);
+    mst_frame_id.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_frame_id.common().member_flags().IS_KEY(false);
+    mst_frame_id.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_frame_id.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
 
 
-    MD5 message_hash("message");
+    MD5 frame_id_hash("frame_id");
     for(int i = 0; i < 4; ++i)
     {
-        mst_message.detail().name_hash()[i] = message_hash.digest[i];
+        mst_frame_id.detail().name_hash()[i] = frame_id_hash.digest[i];
     }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_message);
-
-    MinimalStructMember mst_aaaa;
-    mst_aaaa.common().member_id(memberId++);
-    mst_aaaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_aaaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_aaaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_aaaa.common().member_flags().IS_OPTIONAL(false);
-    mst_aaaa.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_aaaa.common().member_flags().IS_KEY(false);
-    mst_aaaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_aaaa.common().member_type_id(*GetHelloWorldIdentifier(false));
-    MD5 aaaa_hash("aaaa");
-    for(int i = 0; i < 4; ++i)
-    {
-        mst_aaaa.detail().name_hash()[i] = aaaa_hash.digest[i];
-    }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_aaaa);
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_frame_id);
 
 
     // Header
@@ -385,14 +365,14 @@ const TypeObject* GetMinimalHelloWorld_test_2Object()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("HelloWorld_test_2", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("HeaderTest", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_2", false);
+    return TypeObjectFactory::get_instance()->get_type_object("HeaderTest", false);
 }
 
-const TypeObject* GetCompleteHelloWorld_test_2Object()
+const TypeObject* GetCompleteHeaderTestObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_2", true);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HeaderTest", true);
     if (c_type_object != nullptr && c_type_object->_d() == EK_COMPLETE)
     {
         return c_type_object;
@@ -409,54 +389,39 @@ const TypeObject* GetCompleteHelloWorld_test_2Object()
     type_object->complete().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
 
     MemberId memberId = 0;
-    CompleteStructMember cst_index;
-    cst_index.common().member_id(memberId++);
-    cst_index.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_index.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_index.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_index.common().member_flags().IS_OPTIONAL(false);
-    cst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_index.common().member_flags().IS_KEY(false);
-    cst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("uint32_t", false));
+    CompleteStructMember cst_stamp;
+    cst_stamp.common().member_id(memberId++);
+    cst_stamp.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_stamp.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_stamp.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_stamp.common().member_flags().IS_OPTIONAL(false);
+    cst_stamp.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_stamp.common().member_flags().IS_KEY(false);
+    cst_stamp.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_stamp.common().member_type_id(*GetTimeTestIdentifier(true));
+    cst_stamp.detail().name("stamp");
 
-    cst_index.detail().name("index");
+    type_object->complete().struct_type().member_seq().emplace_back(cst_stamp);
 
-    type_object->complete().struct_type().member_seq().emplace_back(cst_index);
-
-    CompleteStructMember cst_message;
-    cst_message.common().member_id(memberId++);
-    cst_message.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_message.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_message.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_message.common().member_flags().IS_OPTIONAL(false);
-    cst_message.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_message.common().member_flags().IS_KEY(false);
-    cst_message.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_message.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
+    CompleteStructMember cst_frame_id;
+    cst_frame_id.common().member_id(memberId++);
+    cst_frame_id.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_frame_id.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_frame_id.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_frame_id.common().member_flags().IS_OPTIONAL(false);
+    cst_frame_id.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_frame_id.common().member_flags().IS_KEY(false);
+    cst_frame_id.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_frame_id.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
 
 
-    cst_message.detail().name("message");
+    cst_frame_id.detail().name("frame_id");
 
-    type_object->complete().struct_type().member_seq().emplace_back(cst_message);
-
-    CompleteStructMember cst_aaaa;
-    cst_aaaa.common().member_id(memberId++);
-    cst_aaaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_aaaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_aaaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_aaaa.common().member_flags().IS_OPTIONAL(false);
-    cst_aaaa.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_aaaa.common().member_flags().IS_KEY(false);
-    cst_aaaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_aaaa.common().member_type_id(*GetHelloWorldIdentifier(true));
-    cst_aaaa.detail().name("aaaa");
-
-    type_object->complete().struct_type().member_seq().emplace_back(cst_aaaa);
+    type_object->complete().struct_type().member_seq().emplace_back(cst_frame_id);
 
 
     // Header
-    type_object->complete().struct_type().header().detail().type_name("HelloWorld_test_2");
+    type_object->complete().struct_type().header().detail().type_name("HeaderTest");
     // TODO inheritance
 
 
@@ -482,41 +447,41 @@ const TypeObject* GetCompleteHelloWorld_test_2Object()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("HelloWorld_test_2", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("HeaderTest", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_2", true);
+    return TypeObjectFactory::get_instance()->get_type_object("HeaderTest", true);
 }
 
-const TypeIdentifier* GetHelloWorld_test_3Identifier(bool complete)
+const TypeIdentifier* GetHelloWorldTestIdentifier(bool complete)
 {
-    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("HelloWorld_test_3", complete);
+    const TypeIdentifier * c_identifier = TypeObjectFactory::get_instance()->get_type_identifier("HelloWorldTest", complete);
     if (c_identifier != nullptr && (!complete || c_identifier->_d() == EK_COMPLETE))
     {
         return c_identifier;
     }
 
-    GetHelloWorld_test_3Object(complete); // Generated inside
-    return TypeObjectFactory::get_instance()->get_type_identifier("HelloWorld_test_3", complete);
+    GetHelloWorldTestObject(complete); // Generated inside
+    return TypeObjectFactory::get_instance()->get_type_identifier("HelloWorldTest", complete);
 }
 
-const TypeObject* GetHelloWorld_test_3Object(bool complete)
+const TypeObject* GetHelloWorldTestObject(bool complete)
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_3", complete);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorldTest", complete);
     if (c_type_object != nullptr)
     {
         return c_type_object;
     }
     else if (complete)
     {
-        return GetCompleteHelloWorld_test_3Object();
+        return GetCompleteHelloWorldTestObject();
     }
     //else
-    return GetMinimalHelloWorld_test_3Object();
+    return GetMinimalHelloWorldTestObject();
 }
 
-const TypeObject* GetMinimalHelloWorld_test_3Object()
+const TypeObject* GetMinimalHelloWorldTestObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_3", false);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorldTest", false);
     if (c_type_object != nullptr)
     {
         return c_type_object;
@@ -533,6 +498,42 @@ const TypeObject* GetMinimalHelloWorld_test_3Object()
     type_object->minimal().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
 
     MemberId memberId = 0;
+    MinimalStructMember mst_head;
+    mst_head.common().member_id(memberId++);
+    mst_head.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_head.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_head.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_head.common().member_flags().IS_OPTIONAL(false);
+    mst_head.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_head.common().member_flags().IS_KEY(false);
+    mst_head.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_head.common().member_type_id(*GetHeaderTestIdentifier(false));
+    MD5 head_hash("head");
+    for(int i = 0; i < 4; ++i)
+    {
+        mst_head.detail().name_hash()[i] = head_hash.digest[i];
+    }
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_head);
+
+    MinimalStructMember mst_message;
+    mst_message.common().member_id(memberId++);
+    mst_message.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    mst_message.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    mst_message.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    mst_message.common().member_flags().IS_OPTIONAL(false);
+    mst_message.common().member_flags().IS_MUST_UNDERSTAND(false);
+    mst_message.common().member_flags().IS_KEY(false);
+    mst_message.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    mst_message.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
+
+
+    MD5 message_hash("message");
+    for(int i = 0; i < 4; ++i)
+    {
+        mst_message.detail().name_hash()[i] = message_hash.digest[i];
+    }
+    type_object->minimal().struct_type().member_seq().emplace_back(mst_message);
+
     MinimalStructMember mst_index;
     mst_index.common().member_id(memberId++);
     mst_index.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
@@ -551,59 +552,6 @@ const TypeObject* GetMinimalHelloWorld_test_3Object()
     }
     type_object->minimal().struct_type().member_seq().emplace_back(mst_index);
 
-    MinimalStructMember mst_message;
-    mst_message.common().member_id(memberId++);
-    mst_message.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_message.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_message.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_message.common().member_flags().IS_OPTIONAL(false);
-    mst_message.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_message.common().member_flags().IS_KEY(false);
-    mst_message.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_message.common().member_type_id(*TypeObjectFactory::get_instance()->get_string_identifier(255, false));
-
-
-    MD5 message_hash("message");
-    for(int i = 0; i < 4; ++i)
-    {
-        mst_message.detail().name_hash()[i] = message_hash.digest[i];
-    }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_message);
-
-    MinimalStructMember mst_aaa;
-    mst_aaa.common().member_id(memberId++);
-    mst_aaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_aaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_aaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_aaa.common().member_flags().IS_OPTIONAL(false);
-    mst_aaa.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_aaa.common().member_flags().IS_KEY(false);
-    mst_aaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_aaa.common().member_type_id(*GetHelloWorld_test_2Identifier(false));
-    MD5 aaa_hash("aaa");
-    for(int i = 0; i < 4; ++i)
-    {
-        mst_aaa.detail().name_hash()[i] = aaa_hash.digest[i];
-    }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_aaa);
-
-    MinimalStructMember mst_bbb;
-    mst_bbb.common().member_id(memberId++);
-    mst_bbb.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    mst_bbb.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    mst_bbb.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    mst_bbb.common().member_flags().IS_OPTIONAL(false);
-    mst_bbb.common().member_flags().IS_MUST_UNDERSTAND(false);
-    mst_bbb.common().member_flags().IS_KEY(false);
-    mst_bbb.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    mst_bbb.common().member_type_id(*GetHelloWorldIdentifier(false));
-    MD5 bbb_hash("bbb");
-    for(int i = 0; i < 4; ++i)
-    {
-        mst_bbb.detail().name_hash()[i] = bbb_hash.digest[i];
-    }
-    type_object->minimal().struct_type().member_seq().emplace_back(mst_bbb);
-
 
     // Header
     // TODO Inheritance
@@ -632,14 +580,14 @@ const TypeObject* GetMinimalHelloWorld_test_3Object()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("HelloWorld_test_3", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("HelloWorldTest", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_3", false);
+    return TypeObjectFactory::get_instance()->get_type_object("HelloWorldTest", false);
 }
 
-const TypeObject* GetCompleteHelloWorld_test_3Object()
+const TypeObject* GetCompleteHelloWorldTestObject()
 {
-    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_3", true);
+    const TypeObject* c_type_object = TypeObjectFactory::get_instance()->get_type_object("HelloWorldTest", true);
     if (c_type_object != nullptr && c_type_object->_d() == EK_COMPLETE)
     {
         return c_type_object;
@@ -656,20 +604,19 @@ const TypeObject* GetCompleteHelloWorld_test_3Object()
     type_object->complete().struct_type().struct_flags().IS_AUTOID_HASH(false); // Unsupported
 
     MemberId memberId = 0;
-    CompleteStructMember cst_index;
-    cst_index.common().member_id(memberId++);
-    cst_index.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_index.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_index.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_index.common().member_flags().IS_OPTIONAL(false);
-    cst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_index.common().member_flags().IS_KEY(false);
-    cst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("int32_t", false));
+    CompleteStructMember cst_head;
+    cst_head.common().member_id(memberId++);
+    cst_head.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_head.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_head.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_head.common().member_flags().IS_OPTIONAL(false);
+    cst_head.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_head.common().member_flags().IS_KEY(false);
+    cst_head.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_head.common().member_type_id(*GetHeaderTestIdentifier(true));
+    cst_head.detail().name("head");
 
-    cst_index.detail().name("index");
-
-    type_object->complete().struct_type().member_seq().emplace_back(cst_index);
+    type_object->complete().struct_type().member_seq().emplace_back(cst_head);
 
     CompleteStructMember cst_message;
     cst_message.common().member_id(memberId++);
@@ -687,37 +634,24 @@ const TypeObject* GetCompleteHelloWorld_test_3Object()
 
     type_object->complete().struct_type().member_seq().emplace_back(cst_message);
 
-    CompleteStructMember cst_aaa;
-    cst_aaa.common().member_id(memberId++);
-    cst_aaa.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_aaa.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_aaa.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_aaa.common().member_flags().IS_OPTIONAL(false);
-    cst_aaa.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_aaa.common().member_flags().IS_KEY(false);
-    cst_aaa.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_aaa.common().member_type_id(*GetHelloWorld_test_2Identifier(true));
-    cst_aaa.detail().name("aaa");
+    CompleteStructMember cst_index;
+    cst_index.common().member_id(memberId++);
+    cst_index.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
+    cst_index.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
+    cst_index.common().member_flags().IS_EXTERNAL(false); // Unsupported
+    cst_index.common().member_flags().IS_OPTIONAL(false);
+    cst_index.common().member_flags().IS_MUST_UNDERSTAND(false);
+    cst_index.common().member_flags().IS_KEY(false);
+    cst_index.common().member_flags().IS_DEFAULT(false); // Doesn't apply
+    cst_index.common().member_type_id(*TypeObjectFactory::get_instance()->get_type_identifier("int32_t", false));
 
-    type_object->complete().struct_type().member_seq().emplace_back(cst_aaa);
+    cst_index.detail().name("index");
 
-    CompleteStructMember cst_bbb;
-    cst_bbb.common().member_id(memberId++);
-    cst_bbb.common().member_flags().TRY_CONSTRUCT1(false); // Unsupported
-    cst_bbb.common().member_flags().TRY_CONSTRUCT2(false); // Unsupported
-    cst_bbb.common().member_flags().IS_EXTERNAL(false); // Unsupported
-    cst_bbb.common().member_flags().IS_OPTIONAL(false);
-    cst_bbb.common().member_flags().IS_MUST_UNDERSTAND(false);
-    cst_bbb.common().member_flags().IS_KEY(false);
-    cst_bbb.common().member_flags().IS_DEFAULT(false); // Doesn't apply
-    cst_bbb.common().member_type_id(*GetHelloWorldIdentifier(true));
-    cst_bbb.detail().name("bbb");
-
-    type_object->complete().struct_type().member_seq().emplace_back(cst_bbb);
+    type_object->complete().struct_type().member_seq().emplace_back(cst_index);
 
 
     // Header
-    type_object->complete().struct_type().header().detail().type_name("HelloWorld_test_3");
+    type_object->complete().struct_type().header().detail().type_name("HelloWorldTest");
     // TODO inheritance
 
 
@@ -743,7 +677,7 @@ const TypeObject* GetCompleteHelloWorld_test_3Object()
         identifier.equivalence_hash()[i] = objectHash.digest[i];
     }
 
-    TypeObjectFactory::get_instance()->add_type_object("HelloWorld_test_3", &identifier, type_object);
+    TypeObjectFactory::get_instance()->add_type_object("HelloWorldTest", &identifier, type_object);
     delete type_object;
-    return TypeObjectFactory::get_instance()->get_type_object("HelloWorld_test_3", true);
+    return TypeObjectFactory::get_instance()->get_type_object("HelloWorldTest", true);
 }

@@ -54,20 +54,20 @@ using namespace eprosima::fastrtps::types;
 
 eProsima_user_DllExport void registerHelloWorldTypes();
 
-eProsima_user_DllExport const TypeIdentifier* GetHelloWorldIdentifier(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetHelloWorldObject(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetMinimalHelloWorldObject();
-eProsima_user_DllExport const TypeObject* GetCompleteHelloWorldObject();
+eProsima_user_DllExport const TypeIdentifier* GetTimeTestIdentifier(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetTimeTestObject(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetMinimalTimeTestObject();
+eProsima_user_DllExport const TypeObject* GetCompleteTimeTestObject();
 
-eProsima_user_DllExport const TypeIdentifier* GetHelloWorld_test_2Identifier(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetHelloWorld_test_2Object(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetMinimalHelloWorld_test_2Object();
-eProsima_user_DllExport const TypeObject* GetCompleteHelloWorld_test_2Object();
+eProsima_user_DllExport const TypeIdentifier* GetHeaderTestIdentifier(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetHeaderTestObject(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetMinimalHeaderTestObject();
+eProsima_user_DllExport const TypeObject* GetCompleteHeaderTestObject();
 
-eProsima_user_DllExport const TypeIdentifier* GetHelloWorld_test_3Identifier(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetHelloWorld_test_3Object(bool complete = false);
-eProsima_user_DllExport const TypeObject* GetMinimalHelloWorld_test_3Object();
-eProsima_user_DllExport const TypeObject* GetCompleteHelloWorld_test_3Object();
+eProsima_user_DllExport const TypeIdentifier* GetHelloWorldTestIdentifier(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetHelloWorldTestObject(bool complete = false);
+eProsima_user_DllExport const TypeObject* GetMinimalHelloWorldTestObject();
+eProsima_user_DllExport const TypeObject* GetCompleteHelloWorldTestObject();
 
 
 #endif // _FAST_DDS_GENERATED_HELLOWORLD_TYPE_OBJECT_H_

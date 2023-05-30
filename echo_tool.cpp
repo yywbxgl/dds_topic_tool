@@ -210,43 +210,11 @@ void EchoTool::SubListener::on_type_information_received(
         dynamic_type = TypeObjectFactory::get_instance()->build_dynamic_type(type_name_, type_identifier, type_object);
     }
 
-    // // Request type object through TypeLookup if not present in factory, or if type building failed
-    // if (!dynamic_type)
-    // {
-    //     std::function<void(const std::string& type_name, const DynamicType_ptr)> callback(
-    //         [this]
-    //             (const std::string&  type_name , const DynamicType_ptr type)
-    //         {
-    //             printf("---- type_name %s\n", type_name.c_str());
-    //             this->internal_notify_type_object_(type);
 
-    //             // if (topic_name != subscriber_->sub_topic_  )
-    //             //     return;
-
-    //             //CREATE THE TOPIC
-    //             eprosima::fastdds::dds::Topic* topic = subscriber_->mp_participant->create_topic(
-    //                 std::string(topic_name), name, TOPIC_QOS_DEFAULT);
-
-    //             if (topic == nullptr)
-    //             {
-    //                 return;
-    //             }
-
-    //         });
-    //     // Registering type and creating reader
-    //     participant->register_remote_type(
-    //         type_information,
-    //         type_name_,
-    //         callback);
-    // } 
-    // else
-    // {
-    //     internal_notify_type_object_(dynamic_type);
-    // }
     std::function<void(const std::string&, const types::DynamicType_ptr)> callback =
             [this, topic_name](const std::string& name, const types::DynamicType_ptr type)
             {
-                std::cout << "-----Discovered type: " << name << " from topic " << topic_name << std::endl;
+                std::cout << "-----on_type_information. get type " << name << " from topic " << topic_name << std::endl;
 
                 if (topic_name != subscriber_->sub_topic_  )
                     return;

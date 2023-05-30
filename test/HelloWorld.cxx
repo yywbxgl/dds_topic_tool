@@ -35,86 +35,86 @@ using namespace eprosima::fastcdr::exception;
 
 #include <utility>
 
-#define HelloWorld_test_3_max_cdr_typesize 1056ULL;
-#define HelloWorld_test_2_max_cdr_typesize 528ULL;
-#define HelloWorld_max_cdr_typesize 264ULL;
-#define HelloWorld_test_3_max_key_cdr_typesize 0ULL;
-#define HelloWorld_test_2_max_key_cdr_typesize 0ULL;
-#define HelloWorld_max_key_cdr_typesize 0ULL;
+#define HelloWorldTest_max_cdr_typesize 532ULL;
+#define TimeTest_max_cdr_typesize 8ULL;
+#define HeaderTest_max_cdr_typesize 268ULL;
+#define HelloWorldTest_max_key_cdr_typesize 0ULL;
+#define TimeTest_max_key_cdr_typesize 0ULL;
+#define HeaderTest_max_key_cdr_typesize 0ULL;
 
-HelloWorld::HelloWorld()
+TimeTest::TimeTest()
 {
-    // unsigned long m_index
-    m_index = 0;
-    // string m_message
-    m_message ="";
+    // long m_sec
+    m_sec = 0;
+    // unsigned long m_nanosec
+    m_nanosec = 0;
 
     // Just to register all known types
     registerHelloWorldTypes();
 }
 
-HelloWorld::~HelloWorld()
+TimeTest::~TimeTest()
 {
 
 
 }
 
-HelloWorld::HelloWorld(
-        const HelloWorld& x)
+TimeTest::TimeTest(
+        const TimeTest& x)
 {
-    m_index = x.m_index;
-    m_message = x.m_message;
+    m_sec = x.m_sec;
+    m_nanosec = x.m_nanosec;
 }
 
-HelloWorld::HelloWorld(
-        HelloWorld&& x) noexcept 
+TimeTest::TimeTest(
+        TimeTest&& x) noexcept 
 {
-    m_index = x.m_index;
-    m_message = std::move(x.m_message);
+    m_sec = x.m_sec;
+    m_nanosec = x.m_nanosec;
 }
 
-HelloWorld& HelloWorld::operator =(
-        const HelloWorld& x)
+TimeTest& TimeTest::operator =(
+        const TimeTest& x)
 {
 
-    m_index = x.m_index;
-    m_message = x.m_message;
+    m_sec = x.m_sec;
+    m_nanosec = x.m_nanosec;
 
     return *this;
 }
 
-HelloWorld& HelloWorld::operator =(
-        HelloWorld&& x) noexcept
+TimeTest& TimeTest::operator =(
+        TimeTest&& x) noexcept
 {
 
-    m_index = x.m_index;
-    m_message = std::move(x.m_message);
+    m_sec = x.m_sec;
+    m_nanosec = x.m_nanosec;
 
     return *this;
 }
 
-bool HelloWorld::operator ==(
-        const HelloWorld& x) const
+bool TimeTest::operator ==(
+        const TimeTest& x) const
 {
 
-    return (m_index == x.m_index && m_message == x.m_message);
+    return (m_sec == x.m_sec && m_nanosec == x.m_nanosec);
 }
 
-bool HelloWorld::operator !=(
-        const HelloWorld& x) const
+bool TimeTest::operator !=(
+        const TimeTest& x) const
 {
     return !(*this == x);
 }
 
-size_t HelloWorld::getMaxCdrSerializedSize(
+size_t TimeTest::getMaxCdrSerializedSize(
         size_t current_alignment)
 {
     static_cast<void>(current_alignment);
-    return HelloWorld_max_cdr_typesize;
+    return TimeTest_max_cdr_typesize;
 }
 
-size_t HelloWorld::getCdrSerializedSize(
-        const HelloWorld& data,
+size_t TimeTest::getCdrSerializedSize(
+        const TimeTest& data,
         size_t current_alignment)
 {
     (void)data;
@@ -124,481 +124,497 @@ size_t HelloWorld::getCdrSerializedSize(
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
-    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4) + data.message().size() + 1;
+    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
+
 
 
     return current_alignment - initial_alignment;
 }
 
-void HelloWorld::serialize(
+void TimeTest::serialize(
         eprosima::fastcdr::Cdr& scdr) const
 {
 
-    scdr << m_index;
-    scdr << m_message.c_str();
+    scdr << m_sec;
+    scdr << m_nanosec;
 
 }
 
-void HelloWorld::deserialize(
+void TimeTest::deserialize(
         eprosima::fastcdr::Cdr& dcdr)
 {
 
-    dcdr >> m_index;
-    dcdr >> m_message;
+    dcdr >> m_sec;
+    dcdr >> m_nanosec;
 }
 
 /*!
- * @brief This function sets a value in member index
- * @param _index New value for member index
+ * @brief This function sets a value in member sec
+ * @param _sec New value for member sec
  */
-void HelloWorld::index(
-        uint32_t _index)
+void TimeTest::sec(
+        int32_t _sec)
 {
-    m_index = _index;
+    m_sec = _sec;
 }
 
 /*!
- * @brief This function returns the value of member index
- * @return Value of member index
+ * @brief This function returns the value of member sec
+ * @return Value of member sec
  */
-uint32_t HelloWorld::index() const
+int32_t TimeTest::sec() const
 {
-    return m_index;
+    return m_sec;
 }
 
 /*!
- * @brief This function returns a reference to member index
- * @return Reference to member index
+ * @brief This function returns a reference to member sec
+ * @return Reference to member sec
  */
-uint32_t& HelloWorld::index()
+int32_t& TimeTest::sec()
 {
-    return m_index;
+    return m_sec;
 }
 
 /*!
- * @brief This function copies the value in member message
- * @param _message New value to be copied in member message
+ * @brief This function sets a value in member nanosec
+ * @param _nanosec New value for member nanosec
  */
-void HelloWorld::message(
-        const std::string& _message)
+void TimeTest::nanosec(
+        uint32_t _nanosec)
 {
-    m_message = _message;
+    m_nanosec = _nanosec;
 }
 
 /*!
- * @brief This function moves the value in member message
- * @param _message New value to be moved in member message
+ * @brief This function returns the value of member nanosec
+ * @return Value of member nanosec
  */
-void HelloWorld::message(
-        std::string&& _message)
+uint32_t TimeTest::nanosec() const
 {
-    m_message = std::move(_message);
+    return m_nanosec;
 }
 
 /*!
- * @brief This function returns a constant reference to member message
- * @return Constant reference to member message
+ * @brief This function returns a reference to member nanosec
+ * @return Reference to member nanosec
  */
-const std::string& HelloWorld::message() const
+uint32_t& TimeTest::nanosec()
 {
-    return m_message;
-}
-
-/*!
- * @brief This function returns a reference to member message
- * @return Reference to member message
- */
-std::string& HelloWorld::message()
-{
-    return m_message;
+    return m_nanosec;
 }
 
 
-size_t HelloWorld::getKeyMaxCdrSerializedSize(
+
+size_t TimeTest::getKeyMaxCdrSerializedSize(
         size_t current_alignment)
 {
     static_cast<void>(current_alignment);
-    return HelloWorld_max_key_cdr_typesize;
+    return TimeTest_max_key_cdr_typesize;
 }
 
-bool HelloWorld::isKeyDefined()
+bool TimeTest::isKeyDefined()
 {
     return false;
 }
 
-void HelloWorld::serializeKey(
+void TimeTest::serializeKey(
         eprosima::fastcdr::Cdr& scdr) const
 {
     (void) scdr;
 }
 
-HelloWorld_test_2::HelloWorld_test_2()
+HeaderTest::HeaderTest()
 {
-    // unsigned long m_index
-    m_index = 0;
-    // string m_message
-    m_message ="";
-    // HelloWorld m_aaaa
+    // TimeTest m_stamp
 
+    // string m_frame_id
+    m_frame_id ="";
 
     // Just to register all known types
     registerHelloWorldTypes();
 }
 
-HelloWorld_test_2::~HelloWorld_test_2()
+HeaderTest::~HeaderTest()
 {
-
 
 
 }
 
-HelloWorld_test_2::HelloWorld_test_2(
-        const HelloWorld_test_2& x)
+HeaderTest::HeaderTest(
+        const HeaderTest& x)
 {
-    m_index = x.m_index;
-    m_message = x.m_message;
-    m_aaaa = x.m_aaaa;
+    m_stamp = x.m_stamp;
+    m_frame_id = x.m_frame_id;
 }
 
-HelloWorld_test_2::HelloWorld_test_2(
-        HelloWorld_test_2&& x) noexcept 
+HeaderTest::HeaderTest(
+        HeaderTest&& x) noexcept 
 {
-    m_index = x.m_index;
-    m_message = std::move(x.m_message);
-    m_aaaa = std::move(x.m_aaaa);
+    m_stamp = std::move(x.m_stamp);
+    m_frame_id = std::move(x.m_frame_id);
 }
 
-HelloWorld_test_2& HelloWorld_test_2::operator =(
-        const HelloWorld_test_2& x)
+HeaderTest& HeaderTest::operator =(
+        const HeaderTest& x)
 {
 
-    m_index = x.m_index;
-    m_message = x.m_message;
-    m_aaaa = x.m_aaaa;
+    m_stamp = x.m_stamp;
+    m_frame_id = x.m_frame_id;
 
     return *this;
 }
 
-HelloWorld_test_2& HelloWorld_test_2::operator =(
-        HelloWorld_test_2&& x) noexcept
+HeaderTest& HeaderTest::operator =(
+        HeaderTest&& x) noexcept
 {
 
-    m_index = x.m_index;
-    m_message = std::move(x.m_message);
-    m_aaaa = std::move(x.m_aaaa);
+    m_stamp = std::move(x.m_stamp);
+    m_frame_id = std::move(x.m_frame_id);
 
     return *this;
 }
 
-bool HelloWorld_test_2::operator ==(
-        const HelloWorld_test_2& x) const
+bool HeaderTest::operator ==(
+        const HeaderTest& x) const
 {
 
-    return (m_index == x.m_index && m_message == x.m_message && m_aaaa == x.m_aaaa);
+    return (m_stamp == x.m_stamp && m_frame_id == x.m_frame_id);
 }
 
-bool HelloWorld_test_2::operator !=(
-        const HelloWorld_test_2& x) const
+bool HeaderTest::operator !=(
+        const HeaderTest& x) const
 {
     return !(*this == x);
 }
 
-size_t HelloWorld_test_2::getMaxCdrSerializedSize(
+size_t HeaderTest::getMaxCdrSerializedSize(
         size_t current_alignment)
 {
     static_cast<void>(current_alignment);
-    return HelloWorld_test_2_max_cdr_typesize;
+    return HeaderTest_max_cdr_typesize;
 }
 
-size_t HelloWorld_test_2::getCdrSerializedSize(
-        const HelloWorld_test_2& data,
+size_t HeaderTest::getCdrSerializedSize(
+        const HeaderTest& data,
         size_t current_alignment)
 {
     (void)data;
     size_t initial_alignment = current_alignment;
 
 
-    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
+    current_alignment += TimeTest::getCdrSerializedSize(data.stamp(), current_alignment);
+    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4) + data.frame_id().size() + 1;
 
-
-    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4) + data.message().size() + 1;
-
-    current_alignment += HelloWorld::getCdrSerializedSize(data.aaaa(), current_alignment);
 
     return current_alignment - initial_alignment;
 }
 
-void HelloWorld_test_2::serialize(
+void HeaderTest::serialize(
         eprosima::fastcdr::Cdr& scdr) const
 {
 
-    scdr << m_index;
-    scdr << m_message.c_str();
-    scdr << m_aaaa;
+    scdr << m_stamp;
+    scdr << m_frame_id.c_str();
 
 }
 
-void HelloWorld_test_2::deserialize(
+void HeaderTest::deserialize(
         eprosima::fastcdr::Cdr& dcdr)
 {
 
-    dcdr >> m_index;
-    dcdr >> m_message;
-    dcdr >> m_aaaa;
+    dcdr >> m_stamp;
+    dcdr >> m_frame_id;
 }
 
 /*!
- * @brief This function sets a value in member index
- * @param _index New value for member index
+ * @brief This function copies the value in member stamp
+ * @param _stamp New value to be copied in member stamp
  */
-void HelloWorld_test_2::index(
-        uint32_t _index)
+void HeaderTest::stamp(
+        const TimeTest& _stamp)
 {
-    m_index = _index;
+    m_stamp = _stamp;
 }
 
 /*!
- * @brief This function returns the value of member index
- * @return Value of member index
+ * @brief This function moves the value in member stamp
+ * @param _stamp New value to be moved in member stamp
  */
-uint32_t HelloWorld_test_2::index() const
+void HeaderTest::stamp(
+        TimeTest&& _stamp)
 {
-    return m_index;
+    m_stamp = std::move(_stamp);
 }
 
 /*!
- * @brief This function returns a reference to member index
- * @return Reference to member index
+ * @brief This function returns a constant reference to member stamp
+ * @return Constant reference to member stamp
  */
-uint32_t& HelloWorld_test_2::index()
+const TimeTest& HeaderTest::stamp() const
 {
-    return m_index;
+    return m_stamp;
 }
 
 /*!
- * @brief This function copies the value in member message
- * @param _message New value to be copied in member message
+ * @brief This function returns a reference to member stamp
+ * @return Reference to member stamp
  */
-void HelloWorld_test_2::message(
-        const std::string& _message)
+TimeTest& HeaderTest::stamp()
 {
-    m_message = _message;
+    return m_stamp;
+}
+/*!
+ * @brief This function copies the value in member frame_id
+ * @param _frame_id New value to be copied in member frame_id
+ */
+void HeaderTest::frame_id(
+        const std::string& _frame_id)
+{
+    m_frame_id = _frame_id;
 }
 
 /*!
- * @brief This function moves the value in member message
- * @param _message New value to be moved in member message
+ * @brief This function moves the value in member frame_id
+ * @param _frame_id New value to be moved in member frame_id
  */
-void HelloWorld_test_2::message(
-        std::string&& _message)
+void HeaderTest::frame_id(
+        std::string&& _frame_id)
 {
-    m_message = std::move(_message);
+    m_frame_id = std::move(_frame_id);
 }
 
 /*!
- * @brief This function returns a constant reference to member message
- * @return Constant reference to member message
+ * @brief This function returns a constant reference to member frame_id
+ * @return Constant reference to member frame_id
  */
-const std::string& HelloWorld_test_2::message() const
+const std::string& HeaderTest::frame_id() const
 {
-    return m_message;
+    return m_frame_id;
 }
 
 /*!
- * @brief This function returns a reference to member message
- * @return Reference to member message
+ * @brief This function returns a reference to member frame_id
+ * @return Reference to member frame_id
  */
-std::string& HelloWorld_test_2::message()
+std::string& HeaderTest::frame_id()
 {
-    return m_message;
-}
-/*!
- * @brief This function copies the value in member aaaa
- * @param _aaaa New value to be copied in member aaaa
- */
-void HelloWorld_test_2::aaaa(
-        const HelloWorld& _aaaa)
-{
-    m_aaaa = _aaaa;
-}
-
-/*!
- * @brief This function moves the value in member aaaa
- * @param _aaaa New value to be moved in member aaaa
- */
-void HelloWorld_test_2::aaaa(
-        HelloWorld&& _aaaa)
-{
-    m_aaaa = std::move(_aaaa);
-}
-
-/*!
- * @brief This function returns a constant reference to member aaaa
- * @return Constant reference to member aaaa
- */
-const HelloWorld& HelloWorld_test_2::aaaa() const
-{
-    return m_aaaa;
-}
-
-/*!
- * @brief This function returns a reference to member aaaa
- * @return Reference to member aaaa
- */
-HelloWorld& HelloWorld_test_2::aaaa()
-{
-    return m_aaaa;
+    return m_frame_id;
 }
 
 
-size_t HelloWorld_test_2::getKeyMaxCdrSerializedSize(
+size_t HeaderTest::getKeyMaxCdrSerializedSize(
         size_t current_alignment)
 {
     static_cast<void>(current_alignment);
-    return HelloWorld_test_2_max_key_cdr_typesize;
+    return HeaderTest_max_key_cdr_typesize;
 }
 
-bool HelloWorld_test_2::isKeyDefined()
+bool HeaderTest::isKeyDefined()
 {
     return false;
 }
 
-void HelloWorld_test_2::serializeKey(
+void HeaderTest::serializeKey(
         eprosima::fastcdr::Cdr& scdr) const
 {
     (void) scdr;
 }
 
-HelloWorld_test_3::HelloWorld_test_3()
+HelloWorldTest::HelloWorldTest()
 {
+    // HeaderTest m_head
+
+    // string m_message
+    m_message ="";
     // long m_index
     m_index = 0;
-    // string m_message
-    m_message ="";
-    // HelloWorld_test_2 m_aaa
-
-    // HelloWorld m_bbb
-
 
     // Just to register all known types
     registerHelloWorldTypes();
 }
 
-HelloWorld_test_3::~HelloWorld_test_3()
+HelloWorldTest::~HelloWorldTest()
 {
-
 
 
 
 }
 
-HelloWorld_test_3::HelloWorld_test_3(
-        const HelloWorld_test_3& x)
+HelloWorldTest::HelloWorldTest(
+        const HelloWorldTest& x)
 {
-    m_index = x.m_index;
+    m_head = x.m_head;
     m_message = x.m_message;
-    m_aaa = x.m_aaa;
-    m_bbb = x.m_bbb;
+    m_index = x.m_index;
 }
 
-HelloWorld_test_3::HelloWorld_test_3(
-        HelloWorld_test_3&& x) noexcept 
+HelloWorldTest::HelloWorldTest(
+        HelloWorldTest&& x) noexcept 
 {
-    m_index = x.m_index;
+    m_head = std::move(x.m_head);
     m_message = std::move(x.m_message);
-    m_aaa = std::move(x.m_aaa);
-    m_bbb = std::move(x.m_bbb);
+    m_index = x.m_index;
 }
 
-HelloWorld_test_3& HelloWorld_test_3::operator =(
-        const HelloWorld_test_3& x)
+HelloWorldTest& HelloWorldTest::operator =(
+        const HelloWorldTest& x)
 {
 
-    m_index = x.m_index;
+    m_head = x.m_head;
     m_message = x.m_message;
-    m_aaa = x.m_aaa;
-    m_bbb = x.m_bbb;
+    m_index = x.m_index;
 
     return *this;
 }
 
-HelloWorld_test_3& HelloWorld_test_3::operator =(
-        HelloWorld_test_3&& x) noexcept
+HelloWorldTest& HelloWorldTest::operator =(
+        HelloWorldTest&& x) noexcept
 {
 
-    m_index = x.m_index;
+    m_head = std::move(x.m_head);
     m_message = std::move(x.m_message);
-    m_aaa = std::move(x.m_aaa);
-    m_bbb = std::move(x.m_bbb);
+    m_index = x.m_index;
 
     return *this;
 }
 
-bool HelloWorld_test_3::operator ==(
-        const HelloWorld_test_3& x) const
+bool HelloWorldTest::operator ==(
+        const HelloWorldTest& x) const
 {
 
-    return (m_index == x.m_index && m_message == x.m_message && m_aaa == x.m_aaa && m_bbb == x.m_bbb);
+    return (m_head == x.m_head && m_message == x.m_message && m_index == x.m_index);
 }
 
-bool HelloWorld_test_3::operator !=(
-        const HelloWorld_test_3& x) const
+bool HelloWorldTest::operator !=(
+        const HelloWorldTest& x) const
 {
     return !(*this == x);
 }
 
-size_t HelloWorld_test_3::getMaxCdrSerializedSize(
+size_t HelloWorldTest::getMaxCdrSerializedSize(
         size_t current_alignment)
 {
     static_cast<void>(current_alignment);
-    return HelloWorld_test_3_max_cdr_typesize;
+    return HelloWorldTest_max_cdr_typesize;
 }
 
-size_t HelloWorld_test_3::getCdrSerializedSize(
-        const HelloWorld_test_3& data,
+size_t HelloWorldTest::getCdrSerializedSize(
+        const HelloWorldTest& data,
         size_t current_alignment)
 {
     (void)data;
     size_t initial_alignment = current_alignment;
 
 
+    current_alignment += HeaderTest::getCdrSerializedSize(data.head(), current_alignment);
+    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4) + data.message().size() + 1;
+
     current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4);
 
 
-    current_alignment += 4 + eprosima::fastcdr::Cdr::alignment(current_alignment, 4) + data.message().size() + 1;
-
-    current_alignment += HelloWorld_test_2::getCdrSerializedSize(data.aaa(), current_alignment);
-    current_alignment += HelloWorld::getCdrSerializedSize(data.bbb(), current_alignment);
 
     return current_alignment - initial_alignment;
 }
 
-void HelloWorld_test_3::serialize(
+void HelloWorldTest::serialize(
         eprosima::fastcdr::Cdr& scdr) const
 {
 
-    scdr << m_index;
+    scdr << m_head;
     scdr << m_message.c_str();
-    scdr << m_aaa;
-    scdr << m_bbb;
+    scdr << m_index;
 
 }
 
-void HelloWorld_test_3::deserialize(
+void HelloWorldTest::deserialize(
         eprosima::fastcdr::Cdr& dcdr)
 {
 
-    dcdr >> m_index;
+    dcdr >> m_head;
     dcdr >> m_message;
-    dcdr >> m_aaa;
-    dcdr >> m_bbb;
+    dcdr >> m_index;
 }
 
+/*!
+ * @brief This function copies the value in member head
+ * @param _head New value to be copied in member head
+ */
+void HelloWorldTest::head(
+        const HeaderTest& _head)
+{
+    m_head = _head;
+}
+
+/*!
+ * @brief This function moves the value in member head
+ * @param _head New value to be moved in member head
+ */
+void HelloWorldTest::head(
+        HeaderTest&& _head)
+{
+    m_head = std::move(_head);
+}
+
+/*!
+ * @brief This function returns a constant reference to member head
+ * @return Constant reference to member head
+ */
+const HeaderTest& HelloWorldTest::head() const
+{
+    return m_head;
+}
+
+/*!
+ * @brief This function returns a reference to member head
+ * @return Reference to member head
+ */
+HeaderTest& HelloWorldTest::head()
+{
+    return m_head;
+}
+/*!
+ * @brief This function copies the value in member message
+ * @param _message New value to be copied in member message
+ */
+void HelloWorldTest::message(
+        const std::string& _message)
+{
+    m_message = _message;
+}
+
+/*!
+ * @brief This function moves the value in member message
+ * @param _message New value to be moved in member message
+ */
+void HelloWorldTest::message(
+        std::string&& _message)
+{
+    m_message = std::move(_message);
+}
+
+/*!
+ * @brief This function returns a constant reference to member message
+ * @return Constant reference to member message
+ */
+const std::string& HelloWorldTest::message() const
+{
+    return m_message;
+}
+
+/*!
+ * @brief This function returns a reference to member message
+ * @return Reference to member message
+ */
+std::string& HelloWorldTest::message()
+{
+    return m_message;
+}
 /*!
  * @brief This function sets a value in member index
  * @param _index New value for member index
  */
-void HelloWorld_test_3::index(
+void HelloWorldTest::index(
         int32_t _index)
 {
     m_index = _index;
@@ -608,7 +624,7 @@ void HelloWorld_test_3::index(
  * @brief This function returns the value of member index
  * @return Value of member index
  */
-int32_t HelloWorld_test_3::index() const
+int32_t HelloWorldTest::index() const
 {
     return m_index;
 }
@@ -617,137 +633,26 @@ int32_t HelloWorld_test_3::index() const
  * @brief This function returns a reference to member index
  * @return Reference to member index
  */
-int32_t& HelloWorld_test_3::index()
+int32_t& HelloWorldTest::index()
 {
     return m_index;
 }
 
-/*!
- * @brief This function copies the value in member message
- * @param _message New value to be copied in member message
- */
-void HelloWorld_test_3::message(
-        const std::string& _message)
-{
-    m_message = _message;
-}
-
-/*!
- * @brief This function moves the value in member message
- * @param _message New value to be moved in member message
- */
-void HelloWorld_test_3::message(
-        std::string&& _message)
-{
-    m_message = std::move(_message);
-}
-
-/*!
- * @brief This function returns a constant reference to member message
- * @return Constant reference to member message
- */
-const std::string& HelloWorld_test_3::message() const
-{
-    return m_message;
-}
-
-/*!
- * @brief This function returns a reference to member message
- * @return Reference to member message
- */
-std::string& HelloWorld_test_3::message()
-{
-    return m_message;
-}
-/*!
- * @brief This function copies the value in member aaa
- * @param _aaa New value to be copied in member aaa
- */
-void HelloWorld_test_3::aaa(
-        const HelloWorld_test_2& _aaa)
-{
-    m_aaa = _aaa;
-}
-
-/*!
- * @brief This function moves the value in member aaa
- * @param _aaa New value to be moved in member aaa
- */
-void HelloWorld_test_3::aaa(
-        HelloWorld_test_2&& _aaa)
-{
-    m_aaa = std::move(_aaa);
-}
-
-/*!
- * @brief This function returns a constant reference to member aaa
- * @return Constant reference to member aaa
- */
-const HelloWorld_test_2& HelloWorld_test_3::aaa() const
-{
-    return m_aaa;
-}
-
-/*!
- * @brief This function returns a reference to member aaa
- * @return Reference to member aaa
- */
-HelloWorld_test_2& HelloWorld_test_3::aaa()
-{
-    return m_aaa;
-}
-/*!
- * @brief This function copies the value in member bbb
- * @param _bbb New value to be copied in member bbb
- */
-void HelloWorld_test_3::bbb(
-        const HelloWorld& _bbb)
-{
-    m_bbb = _bbb;
-}
-
-/*!
- * @brief This function moves the value in member bbb
- * @param _bbb New value to be moved in member bbb
- */
-void HelloWorld_test_3::bbb(
-        HelloWorld&& _bbb)
-{
-    m_bbb = std::move(_bbb);
-}
-
-/*!
- * @brief This function returns a constant reference to member bbb
- * @return Constant reference to member bbb
- */
-const HelloWorld& HelloWorld_test_3::bbb() const
-{
-    return m_bbb;
-}
-
-/*!
- * @brief This function returns a reference to member bbb
- * @return Reference to member bbb
- */
-HelloWorld& HelloWorld_test_3::bbb()
-{
-    return m_bbb;
-}
 
 
-size_t HelloWorld_test_3::getKeyMaxCdrSerializedSize(
+size_t HelloWorldTest::getKeyMaxCdrSerializedSize(
         size_t current_alignment)
 {
     static_cast<void>(current_alignment);
-    return HelloWorld_test_3_max_key_cdr_typesize;
+    return HelloWorldTest_max_key_cdr_typesize;
 }
 
-bool HelloWorld_test_3::isKeyDefined()
+bool HelloWorldTest::isKeyDefined()
 {
     return false;
 }
 
-void HelloWorld_test_3::serializeKey(
+void HelloWorldTest::serializeKey(
         eprosima::fastcdr::Cdr& scdr) const
 {
     (void) scdr;

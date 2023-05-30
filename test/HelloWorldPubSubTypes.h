@@ -35,19 +35,120 @@
 #endif  // GEN_API_VER
 
 
+#ifndef SWIG
+namespace detail {
+
+    template<typename Tag, typename Tag::type M>
+    struct TimeTest_rob
+    {
+        friend constexpr typename Tag::type get(
+                Tag)
+        {
+            return M;
+        }
+    };
+
+    struct TimeTest_f
+    {
+        typedef uint32_t TimeTest::* type;
+        friend constexpr type get(
+                TimeTest_f);
+    };
+
+    template struct TimeTest_rob<TimeTest_f, &TimeTest::m_nanosec>;
+
+    template <typename T, typename Tag>
+    inline size_t constexpr TimeTest_offset_of() {
+        return ((::size_t) &reinterpret_cast<char const volatile&>((((T*)0)->*get(Tag()))));
+    }
+}
+#endif
+
 /*!
- * @brief This class represents the TopicDataType of the type HelloWorld defined by the user in the IDL file.
+ * @brief This class represents the TopicDataType of the type TimeTest defined by the user in the IDL file.
  * @ingroup HELLOWORLD
  */
-class HelloWorldPubSubType : public eprosima::fastdds::dds::TopicDataType
+class TimeTestPubSubType : public eprosima::fastdds::dds::TopicDataType
 {
 public:
 
-    typedef HelloWorld type;
+    typedef TimeTest type;
 
-    eProsima_user_DllExport HelloWorldPubSubType();
+    eProsima_user_DllExport TimeTestPubSubType();
 
-    eProsima_user_DllExport virtual ~HelloWorldPubSubType() override;
+    eProsima_user_DllExport virtual ~TimeTestPubSubType() override;
+
+    eProsima_user_DllExport virtual bool serialize(
+            void* data,
+            eprosima::fastrtps::rtps::SerializedPayload_t* payload) override;
+
+    eProsima_user_DllExport virtual bool deserialize(
+            eprosima::fastrtps::rtps::SerializedPayload_t* payload,
+            void* data) override;
+
+    eProsima_user_DllExport virtual std::function<uint32_t()> getSerializedSizeProvider(
+            void* data) override;
+
+    eProsima_user_DllExport virtual bool getKey(
+            void* data,
+            eprosima::fastrtps::rtps::InstanceHandle_t* ihandle,
+            bool force_md5 = false) override;
+
+    eProsima_user_DllExport virtual void* createData() override;
+
+    eProsima_user_DllExport virtual void deleteData(
+            void* data) override;
+
+#ifdef TOPIC_DATA_TYPE_API_HAS_IS_BOUNDED
+    eProsima_user_DllExport inline bool is_bounded() const override
+    {
+        return true;
+    }
+
+#endif  // TOPIC_DATA_TYPE_API_HAS_IS_BOUNDED
+
+#ifdef TOPIC_DATA_TYPE_API_HAS_IS_PLAIN
+    eProsima_user_DllExport inline bool is_plain() const override
+    {
+        return is_plain_impl();
+    }
+
+#endif  // TOPIC_DATA_TYPE_API_HAS_IS_PLAIN
+
+#ifdef TOPIC_DATA_TYPE_API_HAS_CONSTRUCT_SAMPLE
+    eProsima_user_DllExport inline bool construct_sample(
+            void* memory) const override
+    {
+        new (memory) TimeTest();
+        return true;
+    }
+
+#endif  // TOPIC_DATA_TYPE_API_HAS_CONSTRUCT_SAMPLE
+
+    MD5 m_md5;
+    unsigned char* m_keyBuffer;
+
+private:
+
+    static constexpr bool is_plain_impl()
+    {
+        return 8ULL == (detail::TimeTest_offset_of<TimeTest, detail::TimeTest_f>() + sizeof(uint32_t));
+
+    }};
+
+/*!
+ * @brief This class represents the TopicDataType of the type HeaderTest defined by the user in the IDL file.
+ * @ingroup HELLOWORLD
+ */
+class HeaderTestPubSubType : public eprosima::fastdds::dds::TopicDataType
+{
+public:
+
+    typedef HeaderTest type;
+
+    eProsima_user_DllExport HeaderTestPubSubType();
+
+    eProsima_user_DllExport virtual ~HeaderTestPubSubType() override;
 
     eProsima_user_DllExport virtual bool serialize(
             void* data,
@@ -102,84 +203,18 @@ public:
 };
 
 /*!
- * @brief This class represents the TopicDataType of the type HelloWorld_test_2 defined by the user in the IDL file.
+ * @brief This class represents the TopicDataType of the type HelloWorldTest defined by the user in the IDL file.
  * @ingroup HELLOWORLD
  */
-class HelloWorld_test_2PubSubType : public eprosima::fastdds::dds::TopicDataType
+class HelloWorldTestPubSubType : public eprosima::fastdds::dds::TopicDataType
 {
 public:
 
-    typedef HelloWorld_test_2 type;
+    typedef HelloWorldTest type;
 
-    eProsima_user_DllExport HelloWorld_test_2PubSubType();
+    eProsima_user_DllExport HelloWorldTestPubSubType();
 
-    eProsima_user_DllExport virtual ~HelloWorld_test_2PubSubType() override;
-
-    eProsima_user_DllExport virtual bool serialize(
-            void* data,
-            eprosima::fastrtps::rtps::SerializedPayload_t* payload) override;
-
-    eProsima_user_DllExport virtual bool deserialize(
-            eprosima::fastrtps::rtps::SerializedPayload_t* payload,
-            void* data) override;
-
-    eProsima_user_DllExport virtual std::function<uint32_t()> getSerializedSizeProvider(
-            void* data) override;
-
-    eProsima_user_DllExport virtual bool getKey(
-            void* data,
-            eprosima::fastrtps::rtps::InstanceHandle_t* ihandle,
-            bool force_md5 = false) override;
-
-    eProsima_user_DllExport virtual void* createData() override;
-
-    eProsima_user_DllExport virtual void deleteData(
-            void* data) override;
-
-#ifdef TOPIC_DATA_TYPE_API_HAS_IS_BOUNDED
-    eProsima_user_DllExport inline bool is_bounded() const override
-    {
-        return false;
-    }
-
-#endif  // TOPIC_DATA_TYPE_API_HAS_IS_BOUNDED
-
-#ifdef TOPIC_DATA_TYPE_API_HAS_IS_PLAIN
-    eProsima_user_DllExport inline bool is_plain() const override
-    {
-        return false;
-    }
-
-#endif  // TOPIC_DATA_TYPE_API_HAS_IS_PLAIN
-
-#ifdef TOPIC_DATA_TYPE_API_HAS_CONSTRUCT_SAMPLE
-    eProsima_user_DllExport inline bool construct_sample(
-            void* memory) const override
-    {
-        (void)memory;
-        return false;
-    }
-
-#endif  // TOPIC_DATA_TYPE_API_HAS_CONSTRUCT_SAMPLE
-
-    MD5 m_md5;
-    unsigned char* m_keyBuffer;
-
-};
-
-/*!
- * @brief This class represents the TopicDataType of the type HelloWorld_test_3 defined by the user in the IDL file.
- * @ingroup HELLOWORLD
- */
-class HelloWorld_test_3PubSubType : public eprosima::fastdds::dds::TopicDataType
-{
-public:
-
-    typedef HelloWorld_test_3 type;
-
-    eProsima_user_DllExport HelloWorld_test_3PubSubType();
-
-    eProsima_user_DllExport virtual ~HelloWorld_test_3PubSubType() override;
+    eProsima_user_DllExport virtual ~HelloWorldTestPubSubType() override;
 
     eProsima_user_DllExport virtual bool serialize(
             void* data,

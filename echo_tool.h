@@ -103,7 +103,7 @@ public:
                 // Register type obj in singleton factory
                 TypeObjectFactory::get_instance()->add_type_object(
                     dyn_type->get_name(), identifier, object);
-                std::cout << "---- on_type_discovery dyn type: " << dyn_type->get_name() << std::endl;
+                std::cout << "---- on_type_discovery. dyn type: " << dyn_type->get_name() << std::endl;
                 // internal_notify_type_object_(dyn_type);
 
                 // //CREATE THE TOPIC
